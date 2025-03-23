@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import userRoutes from './routes/userRoutes';
+import userRoutes from './routes/userRoutes.js';
 //import signup from '../src/pages/auth/signup';
 
 //import { fileURLToPath } from 'node:url';
