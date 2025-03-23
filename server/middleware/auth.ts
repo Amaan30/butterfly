@@ -21,6 +21,9 @@ interface User {
 
 // Define interface to extend Express Request
 export interface AuthRequest extends Request {
+        cookies: {
+                token?: string;
+        };
         user?: User;     // You can replace 'any' with a more specific user type
 }
 
