@@ -7,11 +7,11 @@ const Landing: React.FC = () => {
       
       <div id="navbar" className='flex justify-between w-full h-fit fixed top-0'>
         <div id="logo" className='flex justify-between'>
-          <a href="/butterfly/" className='flex justify-between m-5' >Butterfly</a>
+          <a href="/" className='flex justify-between m-5' >Butterfly</a>
         </div>
         <div id="nav-links" className='flex justify-between'>
-          <a href="/butterfly/login" className='mx-4 block w-fit justify-center p-2 md:px-10 rounded m-5 text-sm md:text-2xl text-white bg-blue-500'>Login</a>
-          <a href="/butterfly/signup" className='mx-4 block w-fit justify-center p-2 md:px-10 rounded m-5 text-sm md:text-2xl'>Signup</a>
+          <a href="/login" className='mx-4 block w-fit justify-center p-2 md:px-10 rounded m-5 text-sm md:text-2xl text-white bg-blue-500'>Login</a>
+          <a href="/signup" className='mx-4 block w-fit justify-center p-2 md:px-10 rounded m-5 text-sm md:text-2xl'>Signup</a>
         </div>
       </div>
 
@@ -22,7 +22,7 @@ const Landing: React.FC = () => {
          '>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, nulla in. Tempora at sapiente accusantium cupiditate earum odio excepturi nihil!
         </p>
-        <a href="/butterfly/login" className='justify-center bg-blue-500 rounded m-5 p-5 mx-auto block w-fit text-white'>Get Started.</a>
+        <a href="/login" className='justify-center bg-blue-500 rounded m-5 p-5 mx-auto block w-fit text-white'>Get Started.</a>
       </div>
     </div>
   )

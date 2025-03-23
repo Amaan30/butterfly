@@ -117,7 +117,7 @@ const Signup: React.FC = () => {
             type="submit" name="" id="" 
           />
           <a 
-            href="/butterfly/login"
+            href="/login"
             className='text-blue-500 text-center hover:underline hover:text-red-400'
           >
             Already a user? Log in.

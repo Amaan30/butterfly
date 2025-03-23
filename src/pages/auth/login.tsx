@@ -93,7 +93,7 @@ const Login: React.FC = () => {
 
           {/* Link to signup page for users without an account */}
           <a
-            href="/butterfly/signup"
+            href="/signup"
             className='text-blue-500 text-center hover:underline hover:text-red-400'
           >
             Don't have an account? Signup here.

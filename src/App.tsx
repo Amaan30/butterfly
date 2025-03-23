@@ -14,7 +14,7 @@ import Landing from './pages/landing';
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <BrowserRouter basename='/'>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
