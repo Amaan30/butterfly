@@ -6,7 +6,7 @@
   "homepage": "https://amaan30.github.io/butterfly",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.json",
+    "build": "npm install && cd server && npm install --include=dev && npm run build",
     "start": "node server/dist/server.js",
     "serve": "nodemon --watch server --exec tsx server/server.ts",
     "start:dev": "concurrently \"npm run dev\" \"npm run serve\"",
