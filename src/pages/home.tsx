@@ -22,11 +22,11 @@ const Home: React.FC = () => {
   return (
     <div id='HomeMainContainer' className='bg-gray-400 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
-        <a href="/home" className='mx-2 p-5 font-bold transform scale-y-150 text-1xl'>Butterfly.</a>
-        <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>Dashboard</a>
-        <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 1</a>
-        <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 2</a>
-        <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 3</a>
+        <a href="/butterfly/home" className='mx-2 p-5 font-bold transform scale-y-150 text-1xl'>Butterfly.</a>
+        <a href="/butterfly/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>Dashboard</a>
+        <a href="/butterfly/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 1</a>
+        <a href="/butterfly/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 2</a>
+        <a href="/butterfly/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 3</a>
         <input 
           type="text"
           placeholder='🔍 Search'
@@ -34,11 +34,11 @@ const Home: React.FC = () => {
         />
 
         <div id="notification" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2 md:ml-auto'>
-          <img src='/images/notif-bell-512.png' alt="Profile Picture" className="w-full h-full object-cover" />
+          <img src='/butterfly/images/notif-bell-512.png' alt="notif bell" className="w-full h-full object-cover" />
         </div>
 
         <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
-          <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+          <img src='/butterfly/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
         </div>
 
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
