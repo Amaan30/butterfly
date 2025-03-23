@@ -34,7 +34,7 @@ app.use(cors({
     'https://amaan30.github.io/butterfly'     // With repository name
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
