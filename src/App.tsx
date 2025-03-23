@@ -21,9 +21,9 @@ const App: React.FC = () => {
         <Route path="/signup" element={<Signup />} />
         
         {/* Protected routes for any authenticated user */} 
-        {/*<Route element={<ProtectedRoute/>}>
+        <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home />} />
-        </Route>*/}
+        </Route>
 
         {/* Protected Routes for users with specific roles*/}
       </Routes>
