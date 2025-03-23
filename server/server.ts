@@ -30,8 +30,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     'http://localhost:5173',                        // Development
-    'https://Amaan30.github.io',              // GitHub Pages
-    'https://Amaan30.github.io/butterfly'     // With repository name
+    'https://amaan30.github.io',              // GitHub Pages
+    'https://amaan30.github.io/butterfly'     // With repository name
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
