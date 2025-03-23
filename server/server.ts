@@ -24,11 +24,15 @@ const __dirname = process.cwd();
 console.log(__dirname);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow only this origin
+  origin: [
+    'http://localhost:5173',                        // Development
+    'https://your-username.github.io',              // GitHub Pages
+    'https://your-username.github.io/butterfly'     // With repository name
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
