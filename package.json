@@ -3,16 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://amaan30.github.io/butterfly",
+  "homepage": "https://Amaan.netlify.app",
   "scripts": {
     "dev": "vite",
-    "build": "npm install && cd server && npm install --include=dev && npm run build",
+    "build": "vite build",
+    "prebuild": "npm install",
     "start": "node server/dist/server.js",
     "serve": "nodemon --watch server --exec tsx server/server.ts",
     "start:dev": "concurrently \"npm run dev\" \"npm run serve\"",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist -r https://github.com/amaan30/butterfly.git",
+    "deploy": "vite build",
     "gh-pages-clean": "rimraf node_modules/.cache/gh-pages"
   },
   "dependencies": {
