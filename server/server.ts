@@ -1,31 +1,15 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
-//import signup from '../src/pages/auth/signup';
-
-//import { fileURLToPath } from 'node:url';
-//import { dirname } from 'node:path';
 import path from 'node:path';
-
 import cors from 'cors';
-
-// Fix __dirname for ESM
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = dirname(__filename);
-
-//import cookie-parser
 import cookieParser from 'cookie-parser';
-
 import dotenv from 'dotenv';
+
 dotenv.config();
-
-const __dirname = process.cwd();
-
-console.log(__dirname);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 app.use(cors({
   origin: [
@@ -38,7 +22,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
 app.use(cookieParser());
 
 if (!process.env.MONGODB_URI) {
@@ -55,15 +38,14 @@ mongoose
 
 app.use('/api/users', userRoutes);
 
-
 app.get('/', (_req: Request, res: Response) => {
   res.send('Welcome to the server!');
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../dist')));
+  app.use(express.static(path.join(process.cwd(), 'dist')));
   app.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
   });
 }
 
