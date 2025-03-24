@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     'http://localhost:5173',                        // Development
-    'https://gleaming-strudel-07579f.netlify.app/'
+    'https://gleaming-strudel-07579f.netlify.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
