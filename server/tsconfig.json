@@ -11,6 +11,6 @@
           "forceConsistentCasingInFileNames": true,
           "noImplicitAny": false
         },
-        "include": ["**/*.ts",  "controllers/userController.ts"],
+        "include": ["**/*.ts",  "controllers/userController.ts", "declarations.d.ts"],
         "exclude": ["node_modules"]
 }

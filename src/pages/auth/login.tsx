@@ -39,7 +39,11 @@ const Login: React.FC = () => {
     setLoading(true); // Set loading state to true to indicate the login process has started
     setError(null); // Clear any previous errors
 
+    console.log("logiin try 1");
+    
+
     try {
+      console.log("logiin try 2");
       if (auth?.login) { // Check if the login function is available in the auth context
         // Call the login function with the provided username and password
         await auth.login(LoginData.username, LoginData.password);
