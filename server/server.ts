@@ -30,8 +30,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     'http://localhost:5173',                        // Development
-    'https://amaan30.github.io',              // GitHub Pages
-    'https://amaan30.github.io/butterfly'     // With repository name
+    'https://gleaming-strudel-07579f.netlify.app/'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
