@@ -21,6 +21,9 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider : React.FC<{ children: React.ReactNode }> = ({children}) =>{
 
+        console.log("AuthContext running");
+        
+
         const [isAuth, setIsAuth] = useState<boolean>(false);
         const [user, setUser] = useState<User | null>(null);
         const [loading, setLoading] = useState<boolean>(true);
