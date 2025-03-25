@@ -1,13 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
+import { User } from "../types/user";
 
-interface User {
-        _id: string;
-        username: string,
-        name: string,
-        email: string,
-        role?: string,
-}
+// interface User {
+//         _id: string;
+//         username: string,
+//         name: string,
+//         email: string,
+//         role?: string,
+// }
 
 interface AuthContextType {
         isAuth: boolean;

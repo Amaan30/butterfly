@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../hooks/useAuth';
-
+import axios from '../api/axios';
+import { User } from '../types/user';
 
 const Home: React.FC = () => {
   
   //MouseEvent is a built-in TypeScript interface for mouse events like button clicks
   //HTMLButtonElement is a built-in TypeScript interface for button elements
+
+  const {user} = useAuth();
+  const [userData, setUserData] = useState<User | null>(null);
+
+  //fetching userdata
+  //const [user, setUser] = useState<User | null>(null);
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`/users/${user?._id}`);
+        setUserData(response.data);
+      } catch(error){
+        console.error("failed to fetch user data", error);
+      }
+    }
+    if(user?._id) fetchUserData();
+  }, [user]);
   
   const logout = useAuth().logout;
 
@@ -39,6 +59,7 @@ const Home: React.FC = () => {
 
         <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
           <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+          <p>{user?.username}</p>
         </div>
 
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
