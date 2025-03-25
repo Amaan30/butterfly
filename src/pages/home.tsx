@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../hooks/useAuth';
 import axios from '../api/axios';
 import { User } from '../types/user';
+import { useLocation } from 'react-router-dom';
 
 const Home: React.FC = () => {
   
@@ -11,19 +12,22 @@ const Home: React.FC = () => {
   const {user} = useAuth();
   const [userData, setUserData] = useState<User | null>(null);
 
+  const location = useLocation();
+
   //fetching userdata
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        if(!user?._id) return;
         const response = await axios.get(`/users/${user?._id}`);
         setUserData(response.data);
       } catch(error){
         console.error("failed to fetch user data", error);
       }
     }
-    if(user?._id) fetchUserData();
-  }, [user]);
+    fetchUserData();
+  }, [user, location]);
   
   const logout = useAuth().logout;
 
