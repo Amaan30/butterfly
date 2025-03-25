@@ -59,7 +59,7 @@ const Home: React.FC = () => {
 
         <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
           <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
-          <p>{user?.username}</p>
+          <p>{userData?.username}</p>
         </div>
 
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
