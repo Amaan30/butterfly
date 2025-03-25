@@ -19,7 +19,7 @@
     "outDir": "./dist",
     "rootDir": ".",
   },
-  "include": ["server/**/*.ts", "server/controllers/userController.ts"],
+  "include": ["server/**/*.ts"],
   "exclude": ["node_modules"]
 
 }
