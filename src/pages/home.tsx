@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../hooks/useAuth';
 import axios from '../api/axios';
 import { User } from '../types/user';
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 
 const Home: React.FC = () => {
   
@@ -10,24 +10,24 @@ const Home: React.FC = () => {
   //HTMLButtonElement is a built-in TypeScript interface for button elements
 
   const {user} = useAuth();
-  const [userData, setUserData] = useState<User | null>(null);
+  //const [userData, setUserData] = useState<User | null>(null);
 
-  const location = useLocation();
+  //const location = useLocation();
 
   //fetching userdata
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if(!user?._id) return;
-        const response = await axios.get(`/users/${user?._id}`);
-        setUserData(response.data);
-      } catch(error){
-        console.error("failed to fetch user data", error);
-      }
-    }
-    fetchUserData();
-  }, [user, location]);
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       if(!user?._id) return;
+  //       const response = await axios.get(`/users/${user?._id}`);
+  //       setUserData(response.data);
+  //     } catch(error){
+  //       console.error("failed to fetch user data", error);
+  //     }
+  //   }
+  //   fetchUserData();
+  // }, [user, location]);
   
   const logout = useAuth().logout;
 
