@@ -14,9 +14,9 @@ const Login: React.FC = () => {
   const auth = useAuth(); // Access authentication context or logic from the useAuth hook
 
   // State to manage loading status during login process
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   // State to store and display error messages
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   // State to manage form data for username and password
   const [LoginData, setLoginData] = useState({
