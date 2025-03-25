@@ -12,8 +12,6 @@ const Home: React.FC = () => {
   const [userData, setUserData] = useState<User | null>(null);
 
   //fetching userdata
-  //const [user, setUser] = useState<User | null>(null);
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -68,7 +66,7 @@ const Home: React.FC = () => {
       
       <div id="mainPage" className='flex w-full mt-16'>
         <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-amber-300 '>
-          a
+          a {userData?.email}, {userData?.username}
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-amber-600 ml-auto hidden lg:block'>
           <p>Friends</p>
