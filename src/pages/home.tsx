@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
           <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
         </div>
-        <span>user: {userData?.username}</span>
+        <span>user: {user?.username}</span>
 
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
       
       <div id="mainPage" className='flex w-full mt-16'>
         <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-amber-300 '>
-          a {userData?.email}, {userData?.username}
+          a {user?.email}, {user?.username}
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-amber-600 ml-auto hidden lg:block'>
           <p>Friends</p>
