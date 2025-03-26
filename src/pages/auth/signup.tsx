@@ -12,8 +12,8 @@ const Signup: React.FC = () => {
 
   const auth = useAuth();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [_loading, setLoading] = useState(false);
+  const [_error, setError] = useState<string | null>(null);
 
   const [userData, setUserData] = useState({
     username: "", 
@@ -35,8 +35,9 @@ const Signup: React.FC = () => {
     setLoading(true);
     setError(null);
 
+    const API_URL = import.meta.env.VITE_API_URL;
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch(`${API_URL}api/users`, {
         method: 'POST',
         credentials: 'include',
         headers: {
