@@ -5,7 +5,7 @@ export interface User {
         name: string,
         profilePicture?: string;
         bio?: string;
-        followers?: string;
-        following?: string;
+        followers?: string[];
+        following?: string[];
       }
       
