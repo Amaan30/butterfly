@@ -1,11 +1,15 @@
-import React/*, { useEffect, useState }*/ from 'react'
+import React/*, { useEffect, useState }*/ from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 // import axios from '../api/axios';
 // import { User } from '../types/user';
 //import { useLocation } from 'react-router-dom';
 
 const Home: React.FC = () => {
   
+  const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
+  //useLocation is a hook from react-router-dom for getting the current location object
+  //useState is a hook from React for managing state in functional components
   //MouseEvent is a built-in TypeScript interface for mouse events like button clicks
   //HTMLButtonElement is a built-in TypeScript interface for button elements
 
@@ -41,6 +45,11 @@ const Home: React.FC = () => {
     }
   }
 
+  function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    e.preventDefault();
+    Navigate('/profile');
+  }
+
   return (
     <div id='HomeMainContainer' className='bg-gray-400 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
@@ -59,7 +68,7 @@ const Home: React.FC = () => {
           <img src='/images/notif-bell-512.png' alt="notif bell" className="w-full h-full object-cover" />
         </div>
 
-        <div id="userProfile" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent flex items-center'>
+        <div id="userProfile" className='mx-2 p-2 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent flex items-center' onClick={handleProfileButton}>
           <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
             <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
           </div>

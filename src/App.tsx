@@ -8,6 +8,7 @@ import Home from './pages/home';
 import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
 import Landing from './pages/landing';
+import Profile from './pages/profile';
 
 
 
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         {/* Protected routes for any authenticated user */} 
         <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile/>} />
         </Route>
 
         {/* Protected Routes for users with specific roles*/}
