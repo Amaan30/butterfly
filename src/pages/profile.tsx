@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
 
   return (
     <div id='ProfilePage' className='bg-gray-300 w-full min-h-screen'>
-      <div id="navbar" className='bg-indigo-950 w-full h-16 flex justify-center items-center text-white fixed z-50 top-0 left-0'>
+      <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
         <a href="/home" className='mx-2 p-5 font-bold transform scale-y-150 text-1xl'>Butterfly.</a>
         <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>Dashboard</a>
         <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>option 1</a>
@@ -52,14 +52,17 @@ const Profile: React.FC = () => {
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
       </div>
-      <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
-        <h1 className='text-3xl p-10'>Profile</h1>
-        <div className='flex flex-col w-9/10 md:w-2/3 lg:w-1/2'>
-          <p className='text-lg'>Username: {user?.username}</p>
-          <p className='text-lg'>Email: {user?.email}</p>
-          <p className='text-lg'>Full Name: {user?.name}</p>
+      <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
+        <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
+                <h1 className='text-3xl p-10'>Profile</h1>
+                <div className='flex flex-col w-9/10 md:w-2/3 lg:w-1/2'>
+                <p className='text-lg'>Username: {user?.username}</p>
+                <p className='text-lg'>Email: {user?.email}</p>
+                <p className='text-lg'>Full Name: {user?.name}</p>
+                </div>
         </div>
       </div>
+      
     </div>
   )
 }
