@@ -56,7 +56,7 @@ const Profile: React.FC = () => {
         <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
                 <div id="profileDiv1">
                         <div id="profilePic">
-                                <div id="img" content={user?.profilePicture}></div>
+                                <img src={user?.profilePicture} alt="" />
                         </div>  
                         <div id="ProfileMainDetails">
                                 <div id="name">{user?.name}</div>
