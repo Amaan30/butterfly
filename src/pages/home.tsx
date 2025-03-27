@@ -51,7 +51,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div id='HomeMainContainer' className='bg-gray-400 w-full min-h-screen'>
+    <div id='HomeMainContainer' className='bg-gray-300 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
         <a href="/home" className='mx-2 p-5 font-bold transform scale-y-150 text-1xl'>Butterfly.</a>
         <a href="/home" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent hidden lg:block'>Dashboard</a>
@@ -81,10 +81,10 @@ const Home: React.FC = () => {
       </div>
       
       <div id="mainPage" className='flex w-full mt-16'>
-        <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-amber-300 '>
+        <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
           a {user?.email}, {user?.username}
         </div>
-        <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-amber-600 ml-auto hidden lg:block'>
+        <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
           <p>Friends</p>
           
         </div>
