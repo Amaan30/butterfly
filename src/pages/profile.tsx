@@ -54,7 +54,7 @@ const Profile: React.FC = () => {
       </div>
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
         <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
-                <div id="profileDiv1">
+                <div id="profileDiv1" className='flex'>
                         <div id="profilePic">
                                 <img src={user?.profilePicture} alt="" />
                         </div>  
