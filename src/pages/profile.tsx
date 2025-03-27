@@ -54,12 +54,18 @@ const Profile: React.FC = () => {
       </div>
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
         <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
-                <h1 className='text-3xl p-10'>Profile</h1>
-                <div className='flex flex-col w-9/10 md:w-2/3 lg:w-1/2'>
-                <p className='text-lg'>Username: {user?.username}</p>
-                <p className='text-lg'>Email: {user?.email}</p>
-                <p className='text-lg'>Full Name: {user?.name}</p>
+                <div id="profileDiv1">
+                        <div id="profilePic">
+                                <div id="img" content={user?.profilePicture}></div>
+                        </div>  
+                        <div id="ProfileMainDetails">
+                                <div id="name">{user?.name}</div>
+                                <div id="username">{user?.username}</div>
+                                <div id="email">{user?.email}</div>
+                                <div id="bio">{user?.bio}</div>
+                        </div>                      
                 </div>
+                <div id="profileDiv2"></div>
         </div>
       </div>
       
