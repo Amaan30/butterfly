@@ -59,11 +59,14 @@ const Home: React.FC = () => {
           <img src='/images/notif-bell-512.png' alt="notif bell" className="w-full h-full object-cover" />
         </div>
 
-        <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
-          <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+        <div id="userProfile" className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent'>
+          <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
+            <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+          </div>
+          <span className='px-2'>{user?.username}</span>
         </div>
-        <span className='px-2'>{user?.username}</span>
 
+        
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
       </div>
