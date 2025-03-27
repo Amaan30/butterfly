@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React/*, { useEffect, useState }*/ from 'react'
 import { useAuth } from '../hooks/useAuth';
-import axios from '../api/axios';
-import { User } from '../types/user';
+// import axios from '../api/axios';
+// import { User } from '../types/user';
 //import { useLocation } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
           <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
         </div>
-        <span>user: {user?.username}</span>
+        <span className='px-2'>{user?.username}</span>
 
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
