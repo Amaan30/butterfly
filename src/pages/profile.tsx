@@ -70,11 +70,8 @@ const Profile: React.FC = () => {
             <p id='line' className='w-full h-1 bg-black my-2'></p>
             <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full'>
               <div id="postExample1" className='bg-indigo-300 border-2 w-1/3 aspect-square m-5'>
-                <div id="postImage" className='w-32 h-32 bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/post1.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-                <div id="postDescription">
-                  <p className='text-gray-600'>This is a sample post description.</p>
+                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
+                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
