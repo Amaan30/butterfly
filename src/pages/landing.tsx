@@ -22,7 +22,7 @@ const Landing: React.FC = () => {
          '>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, nulla in. Tempora at sapiente accusantium cupiditate earum odio excepturi nihil!
         </p>
-        <a href="/login" className='justify-center bg-blue-500 rounded m-5 p-5 mx-auto block w-fit text-white'>Get Started.</a>
+        <a href="/home" className='justify-center bg-blue-500 rounded m-5 p-5 mx-auto block w-fit text-white'>Get Started.</a>
       </div>
     </div>
   )
