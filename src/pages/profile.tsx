@@ -65,8 +65,7 @@ const Profile: React.FC = () => {
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
           </div>
-        </div>
-        <div id="userContentDetails">
+          <div id="userContentDetails">
           <p>Posts</p>
           <p id='line'></p>
           <div id="postsContainer" className='border-2 bg-amber-100'>
@@ -80,8 +79,8 @@ const Profile: React.FC = () => {
             </div>
           </div>
         </div>
+        </div>
       </div>
-      
     </div>
   )
 }
