@@ -58,7 +58,7 @@ const Profile: React.FC = () => {
                         <div id="profilePic" className='w-64 h-64 bg-contain rounded-full overflow-hidden mx-2 border-2 border-gray-700'>
                                 <img src={user?.profilePicture} alt="" className='' />
                         </div>  
-                        <div id="ProfileMainDetails" className='flex flex-col justify-center items-start border-2 border-gray-700 rounded-lg p-4 ml-auto'>
+                        <div id="ProfileMainDetails" className='flex flex-col justify-center items-start border-2 border-gray-700 rounded-lg p-4 w-full'>
                                 <div id="name">{user?.name}</div>
                                 <div id="username">{user?.username}</div>
                                 <div id="email">{user?.email}</div>
