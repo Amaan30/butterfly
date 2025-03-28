@@ -66,6 +66,20 @@ const Profile: React.FC = () => {
             <span className='text-gray-600'>Following: 50</span>
           </div>
         </div>
+        <div id="userContentDetails">
+          <p>Posts</p>
+          <p id='line'></p>
+          <div id="postsContainer" className='border-2 bg-amber-100'>
+            <div id="postExample1">
+              <div id="postImage" className='w-32 h-32 bg-contain rounded-lg overflow-hidden mb-5'>
+                <img src='/images/post1.jpg' alt="Post 1" className="w-full h-full object-cover" />
+              </div>
+              <div id="postDescription">
+                <p className='text-gray-600'>This is a sample post description.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
     </div>
