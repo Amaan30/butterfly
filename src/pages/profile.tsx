@@ -55,10 +55,10 @@ const Profile: React.FC = () => {
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
         <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-2/3 rounded-lg shadow-lg'>
                 <div id="profileDiv1" className='flex'>
-                        <div id="profilePic">
-                                <img src={user?.profilePicture} alt="" />
+                        <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mx-2 border-2 border-gray-700'>
+                                <img src={user?.profilePicture} alt="" className='' />
                         </div>  
-                        <div id="ProfileMainDetails">
+                        <div id="ProfileMainDetails" className='flex flex-col justify-center items-start border-2 border-gray-700 rounded-lg p-4'>
                                 <div id="name">{user?.name}</div>
                                 <div id="username">{user?.username}</div>
                                 <div id="email">{user?.email}</div>
