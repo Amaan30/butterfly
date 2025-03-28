@@ -54,7 +54,7 @@ const Profile: React.FC = () => {
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
       </div>
-      <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
+      <div id="profileContainer" className='flex justify-center bg-blue-100 h-auto w-screen'>
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 my-10 w-full rounded-lg shadow-lg'>
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
             <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
