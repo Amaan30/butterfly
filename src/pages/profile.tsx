@@ -55,15 +55,16 @@ const Profile: React.FC = () => {
         
       </div>
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
-        <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-full rounded-lg shadow-lg'>
-                <div id="profileDiv1" className='flex border-2 w-full'>
-                    <div id="banner"></div>
-                    <div id="below-banner">
-                      <div id="data"></div>
-                      <div id="content"></div>
-                    </div>
-                </div>
-                <div id="profileDiv2"></div>
+        <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 my-10 w-full rounded-lg shadow-lg'>
+          <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
+            <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+          </div>
+          <h1 className='text-2xl font-bold'>{username_profile}</h1>
+          <p className='text-gray-600'>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div id="profileStats" className='flex space-x-4 mt-5'>
+            <span className='text-gray-600'>Followers: 100</span>
+            <span className='text-gray-600'>Following: 50</span>
+          </div>
         </div>
       </div>
       

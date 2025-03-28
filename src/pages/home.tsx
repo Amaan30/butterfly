@@ -14,6 +14,8 @@ const Home: React.FC = () => {
   //HTMLButtonElement is a built-in TypeScript interface for button elements
 
   const {user} = useAuth();
+  const username = user!.username;
+
   //const [userData, setUserData] = useState<User | null>(null);
 
   //const location = useLocation();
@@ -47,7 +49,7 @@ const Home: React.FC = () => {
 
   function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
     e.preventDefault();
-    Navigate(`/{user?.username}`);
+    Navigate(`/${username}`);
   }
 
   return (
