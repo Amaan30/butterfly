@@ -55,7 +55,7 @@ const Profile: React.FC = () => {
         
       </div>
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-auto w-screen'>
-        <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 my-10 w-full rounded-lg shadow-lg'>
+        <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-4 my-4 w-full rounded-lg shadow-lg'>
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
             <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
@@ -68,7 +68,7 @@ const Profile: React.FC = () => {
           <div id="userContentDetails" className='flex flex-col items-center mt-10 w-5/6'>
             <p className='font-bold m-2'>Posts</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
-            <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid gap-4 grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+            <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid gap-4 grid-flow-row auto-cols-max'>
               <div id="postExample1" className='bg-indigo-300 border-2 w-32 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                   <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
