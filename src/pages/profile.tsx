@@ -84,6 +84,21 @@ const Profile: React.FC = () => {
                   <img src='/images/Default-pfp.jpg' alt="Post 3" className="w-full h-full object-cover" />
                 </div>
               </div>
+              <div id="postExample4" className='bg-indigo-300 border-2 w-32 aspect-square'>
+                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
+                  <img src='/images/Default-pfp.jpg' alt="Post 4" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div id="postExample5" className='bg-indigo-300 border-2 w-32 aspect-square'>
+                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
+                  <img src='/images/Default-pfp.jpg' alt="Post 5" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div id="postExample6" className='bg-indigo-300 border-2 w-32 aspect-square'>
+                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
+                  <img src='/images/Default-pfp.jpg' alt="Post 6" className="w-full h-full object-cover" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
