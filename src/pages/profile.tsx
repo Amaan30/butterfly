@@ -74,44 +74,14 @@ const Profile: React.FC = () => {
                   <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
                 </div>
               </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
+              <div id="postExample2" className='bg-indigo-300 border-2 w-48 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
+                  <img src='/images/Default-pfp.jpg' alt="Post 2" className="w-full h-full object-cover" />
                 </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
+              <div/>
+              <div id="postExample3" className='bg-indigo-300 border-2 w-48 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
-                <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                  <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
+                  <img src='/images/Default-pfp.jpg' alt="Post 3" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
