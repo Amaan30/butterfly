@@ -45,7 +45,7 @@ const Profile: React.FC = () => {
 
         <div id="userProfile" className='mx-2 p-3 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent flex items-center' onClick={handleProfileButton}>
           <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
-            <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
           <span className='px-2'>{user?.username}</span>
         </div>
@@ -57,10 +57,10 @@ const Profile: React.FC = () => {
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 my-10 w-full rounded-lg shadow-lg'>
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
-            <img src='/images/defaultUserWhite.png' alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
-          <h1 className='text-2xl font-bold'>{username_profile}</h1>
-          <p className='text-gray-600'>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h1 className='text-2xl font-bold'>{user?.name}</h1>
+          <p className='text-gray-600'>Bio: {user?.bio}</p>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
