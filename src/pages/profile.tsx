@@ -1,9 +1,11 @@
 import React from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 
 const Profile: React.FC = () => {
+        const {username_profile} = useParams();
         const {user} = useAuth();
         const logout = useAuth().logout;
         const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
@@ -53,17 +55,13 @@ const Profile: React.FC = () => {
         
       </div>
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-screen w-screen'>
-        <div id="loginCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-full rounded-lg shadow-lg'>
+        <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-10 m-10 w-full rounded-lg shadow-lg'>
                 <div id="profileDiv1" className='flex border-2 w-full'>
-                        <div id="profilePic" className='w-64 h-64 bg-contain rounded-full overflow-hidden mx-2 border-2 border-gray-700'>
-                                <img src={user?.profilePicture} alt="" className='' />
-                        </div>  
-                        <div id="ProfileMainDetails" className='flex flex-col justify-center items-start border-2 border-gray-700 rounded-lg p-4 w-full'>
-                                <div id="name">{user?.name}</div>
-                                <div id="username">{user?.username}</div>
-                                <div id="email">{user?.email}</div>
-                                <div id="bio">{user?.bio}</div>
-                        </div>                      
+                    <div id="banner"></div>
+                    <div id="below-banner">
+                      <div id="data"></div>
+                      <div id="content"></div>
+                    </div>
                 </div>
                 <div id="profileDiv2"></div>
         </div>

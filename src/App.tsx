@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/authContext';
 import ProtectedRoute from './components/protectedRoute';
+import { User } from './types/user';
 
 //importing pages
 import Home from './pages/home';
@@ -24,7 +25,7 @@ const App: React.FC = () => {
         {/* Protected routes for any authenticated user */} 
         <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/:username" element={<Profile/>} />
         </Route>
 
         {/* Protected Routes for users with specific roles*/}
