@@ -69,17 +69,17 @@ const Profile: React.FC = () => {
             <p className='font-bold m-2'>Posts</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
             <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid gap-4 grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-              <div id="postExample1" className='bg-indigo-300 border-2 w-48 aspect-square'>
+              <div id="postExample1" className='bg-indigo-300 border-2 w-32 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                   <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
                 </div>
               </div>
-              <div id="postExample2" className='bg-indigo-300 border-2 w-48 aspect-square'>
+              <div id="postExample2" className='bg-indigo-300 border-2 w-32 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                   <img src='/images/Default-pfp.jpg' alt="Post 2" className="w-full h-full object-cover" />
                 </div>
               </div>
-              <div id="postExample3" className='bg-indigo-300 border-2 w-48 aspect-square'>
+              <div id="postExample3" className='bg-indigo-300 border-2 w-32 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                   <img src='/images/Default-pfp.jpg' alt="Post 3" className="w-full h-full object-cover" />
                 </div>
