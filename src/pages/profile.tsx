@@ -68,7 +68,7 @@ const Profile: React.FC = () => {
           <div id="userContentDetails" className='flex flex-col items-center mt-10 w-5/6'>
             <p className='font-bold m-2'>Posts</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
-            <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               <div id="postExample1" className='bg-indigo-300 border-2 w-32 aspect-square'>
                 <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                   <img src='/images/Default-pfp.jpg' alt="Post 1" className="w-full h-full object-cover" />
