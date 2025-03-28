@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const Profile: React.FC = () => {
 
         //Test variables
-        const {count, setCount} = React.useState(0);
+        const [count, setCount] = React.useState(0);
 
         const {username_profile} = useParams();
         const {user} = useAuth();
@@ -71,7 +71,7 @@ const Profile: React.FC = () => {
           </div>
           <div id="userContentDetails" className='flex flex-col items-center mt-10 w-5/6'>
             <p className='font-bold m-2'>Posts</p>
-            <input type="text" value={setCount()} />
+            <input type="text" value={count} onChange={(e) => setCount(Number(e.target.value))} />
             <p>{count}</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
             <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
