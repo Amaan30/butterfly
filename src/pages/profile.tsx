@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { User } from '../types/user'; // Importing User type for TypeScript type checking
 
 const Profile: React.FC = () => {
 
@@ -12,11 +13,11 @@ const Profile: React.FC = () => {
   const {user} = useAuth();
   const logout = useAuth().logout;
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
-  const [profile_data, setProfile_data] = useState(null)
+  const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
 
   const isMyProfile = username_profile === user?.username; // Check if the profile belongs to the logged-in user
-  //const isMyProfileStyle = isMyProfile ? 'bg-green-200' : 'bg-red-200'; // Conditional styling based on profile ownership
-
+  console.log('isMyProfile:', isMyProfile);
+  
   useEffect(() => {
     const Fetch_profileData = async () => {
       try {
