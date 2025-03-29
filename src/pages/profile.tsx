@@ -27,8 +27,14 @@ const Profile: React.FC = () => {
             'Content-Type': 'application/json',
           },
         });
+        console.log(response);
+        
         const data = await response.json();
+
+        console.log(data);
+
         if (response.ok) {
+          console.log('User data fetched:', data);
           setProfile_data(data);
         }else{
           console.error('Error fetching user:', data.message);
