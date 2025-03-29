@@ -1,33 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
-
-
+import { useEffect } from 'react';
 
 const Profile: React.FC = () => {
 
-        //Test variables
-        const [count, setCount] = React.useState(0);
+  //Test variables
+  const [count, setCount] = React.useState(0);
 
-        const {username_profile} = useParams();
-        const {user} = useAuth();
-        const logout = useAuth().logout;
-        const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
-        
-        function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
-                e.preventDefault();
-                try{
-                        logout();
-                }
-                catch(err){
-                        console.error('Error logging out:', err);
-                }
-        }
+  const {username_profile} = useParams();
+  const {user} = useAuth();
+  const logout = useAuth().logout;
+  const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
+  const [profile_data, setProfile_data] = useState(null)
 
-        function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-                e.preventDefault();
-                Navigate('/profile');
+  const isMyProfile = username_profile === user?.username; // Check if the profile belongs to the logged-in user
+  //const isMyProfileStyle = isMyProfile ? 'bg-green-200' : 'bg-red-200'; // Conditional styling based on profile ownership
+
+  useEffect(() => {
+    const Fetch_profileData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${username_profile}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setProfile_data(data);
+        }else{
+          console.error('Error fetching user:', data.message);
+          return null;
         }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        return null;
+      }
+    };
+    if(username_profile){
+      Fetch_profileData();
+    };
+  }, [username_profile]);
+
+  if (!profile_data) {
+    return <p>Loading profile...</p>;
+  }
+
+  function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.preventDefault();
+    try{
+      logout();
+    }
+    catch(err){
+      console.error('Error logging out:', err);
+    }
+  }
+
+  function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    e.preventDefault();
+    Navigate('/profile');
+  }
 
   return (
     <div id='ProfilePage' className='bg-gray-300 w-full min-h-screen'>
@@ -63,7 +97,7 @@ const Profile: React.FC = () => {
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
             <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
-          <h1 className='text-2xl font-bold'>{user?.name}</h1>
+          <h1 className='text-2xl font-bold'>{profile_data?.name}</h1>
           <p className='text-gray-600'>Bio: {user?.bio}</p>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
@@ -74,9 +108,9 @@ const Profile: React.FC = () => {
             <input type="text" value={count} min={0} max={200} onChange={(e) => setCount(Number(e.target.value))} />
             <p>{count}</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
-            <div id="postsContainer" className='border-2 bg-amber-100 p-5 w-2/3 justify-items-center grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div id="postsContainer" className='border-2 p-5 w-2/3 justify-items-center grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               {Array.from({ length: count }).map((_, index) => (
-                <div key={index} id={`postExample${index}`} className='bg-indigo-300 border-2 w-32 aspect-square'>
+                <div key={index} id={`postExample${index}`} className='border-2 w-32 aspect-square'>
                   <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
                     <img src='/images/Default-pfp.jpg' alt={`Post ${index}`} className="w-full h-full object-cover" />
                   </div>
