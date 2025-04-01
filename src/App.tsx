@@ -24,7 +24,7 @@ const App: React.FC = () => {
         {/* Protected routes for any authenticated user */} 
         <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home />} />
-          <Route path="/:username" element={<Profile/>} />
+          <Route path="/:usernameProfile" element={<Profile/>} />
         </Route>
 
         {/* Protected Routes for users with specific roles*/}

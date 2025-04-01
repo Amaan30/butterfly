@@ -9,21 +9,21 @@ const Profile: React.FC = () => {
   //Test variables
   const [count, setCount] = React.useState(0);
 
-  const {username_profile} = useParams();
+  const {usernameProfile} = useParams();
   const {user} = useAuth();
   const logout = useAuth().logout;
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
 
-  const isMyProfile = username_profile === user?.username;
+  const isMyProfile = usernameProfile === user?.username;
 
   console.log('isMyProfile:', isMyProfile);
 
   useEffect(() => {
-    if (!username_profile) return;
+    if (!usernameProfile) return;
     const Fetch_profileData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${username_profile}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${usernameProfile}`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -48,14 +48,14 @@ const Profile: React.FC = () => {
         return null;
       }
     };
-    if(username_profile){
+    if(usernameProfile){
       Fetch_profileData();
     };
-    if(username_profile === user?.username){
+    if(usernameProfile === user?.username){
       setProfile_data(user);
       return;
     }
-  }, [username_profile, user]);
+  }, [usernameProfile, user]);
 
   console.log('Profile data:', profile_data);
   console.log('User:', user);
