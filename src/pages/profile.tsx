@@ -114,14 +114,16 @@ const Profile: React.FC = () => {
             <img
               src={user?.profilePicture || '/images/Default-pfp.jpg'}
               alt="Profile Picture"
-              className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-50"
+              className="w-full h-full object-cover transition-opacity duration-300"
             />
-            <button
-              className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              onClick={() => alert('Open file upload modal here')}
-            >
-              Change PFP
-            </button>
+            {isMyProfile && (
+              <button
+                className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                onClick={() => alert('Open file upload modal here')}
+              >
+                Change PFP
+              </button>
+            )}
           </div>
           <h1 className='text-2xl font-bold'>{profile_data?.name}</h1>
           <p className='text-gray-600'>Bio: {user?.bio}</p>
