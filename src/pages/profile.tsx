@@ -3,6 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { User } from '../types/user'; // Importing User type for TypeScript type checking
+import {useDropzone} from 'react-dropzone'; // Importing useDropzone for drag-and-drop file upload functionality
 
 const Profile: React.FC = () => {
 
@@ -10,10 +11,11 @@ const Profile: React.FC = () => {
   const [count, setCount] = React.useState(0);
 
   const {usernameProfile} = useParams();
-  const {user} = useAuth();
+  const {user, setUser} = useAuth();
   const logout = useAuth().logout;
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
+  const [uploading, setUploading] = useState(false); // State to manage uploading status
 
   const isMyProfile = usernameProfile === user?.username;
 
@@ -57,14 +59,6 @@ const Profile: React.FC = () => {
     }
   }, [usernameProfile, user]);
 
-  console.log('Profile data:', profile_data);
-  console.log('User:', user);
-  
-
-  if (!profile_data) {
-    return <p>Loading profile...</p>;
-  }
-
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     try{
@@ -78,6 +72,41 @@ const Profile: React.FC = () => {
   function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
     e.preventDefault();
     Navigate(`/${user?.username}`);
+  }
+
+  const handleFileUpload = async (file: File) => {
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/upload-pfp`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUser((prevUser) => ({ ...prevUser, profilePicture: data.profilePicture })); // Update UI
+      } else {
+        console.error('Error uploading profile picture:', data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => handleFileUpload(acceptedFiles[0]),
+    accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.gif'] },
+    maxSize: 2 * 1024 * 1024, // 2MB max file size
+  });
+
+  if (!profile_data) {
+    return <p>Loading profile...</p>;
   }
 
   return (
@@ -117,12 +146,12 @@ const Profile: React.FC = () => {
               className="w-full h-full object-cover transition-opacity duration-300"
             />
             {isMyProfile && (
-              <button
+              <div {...getRootProps()}
                 className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                onClick={() => alert('Open file upload modal here')}
               >
-                Change PFP
-              </button>
+                <input {...getInputProps()} />
+                {uploading ? 'Uploading...' : 'Change pfp'}
+              </div>
             )}
           </div>
           <h1 className='text-2xl font-bold'>{profile_data?.name}</h1>
