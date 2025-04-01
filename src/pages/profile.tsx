@@ -15,10 +15,12 @@ const Profile: React.FC = () => {
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
 
-  const isMyProfile = username_profile === user?.username; // Check if the profile belongs to the logged-in user
+  const isMyProfile = username_profile === user?.username;
+
   console.log('isMyProfile:', isMyProfile);
-  
+
   useEffect(() => {
+    if (!username_profile) return;
     const Fetch_profileData = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${username_profile}`, {
@@ -49,7 +51,11 @@ const Profile: React.FC = () => {
     if(username_profile){
       Fetch_profileData();
     };
-  }, [username_profile]);
+    if(username_profile === user?.username){
+      setProfile_data(user);
+      return;
+    }
+  }, [username_profile, user]);
 
   if (!profile_data) {
     return <p>Loading profile...</p>;
