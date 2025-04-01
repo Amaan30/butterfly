@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-auto w-screen'>
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-4 my-4 w-full rounded-lg shadow-lg top-16'>
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
-            <img src={user?.profilePicture || '/images/Default-pfp.jpg'} alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={user?.profilePicture || '/images/Default-pfp.jpg'} alt="Profile Picture" className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-50" />
             <button
               className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               onClick={() => alert('Open file upload modal here')}>
