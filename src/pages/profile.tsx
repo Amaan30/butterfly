@@ -104,7 +104,6 @@ const Profile: React.FC = () => {
           </div>
           <span className='px-2'>{user?.username}</span>
         </div>
-
         
         <button className='mx-2 p-5 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent' onClick={handleLogoutButton}> Logout </button>
         
@@ -112,7 +111,12 @@ const Profile: React.FC = () => {
       <div id="profileContainer" className='flex justify-center bg-blue-100 h-auto w-screen'>
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-4 my-4 w-full rounded-lg shadow-lg top-16'>
           <div id="profilePic" className='w-32 h-32 bg-contain rounded-full overflow-hidden mb-5'>
-            <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={user?.profilePicture || '/images/Default-pfp.jpg'} alt="Profile Picture" className="w-full h-full object-cover" />
+            <button
+              className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              onClick={() => alert('Open file upload modal here')}>
+              Change PFP
+            </button>
           </div>
           <h1 className='text-2xl font-bold'>{profile_data?.name}</h1>
           <p className='text-gray-600'>Bio: {user?.bio}</p>
