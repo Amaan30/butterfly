@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
 
   function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
     e.preventDefault();
-    Navigate('/profile');
+    Navigate('/:usernameProfile');
   }
 
   return (
