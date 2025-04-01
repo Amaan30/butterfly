@@ -57,6 +57,10 @@ const Profile: React.FC = () => {
     }
   }, [username_profile, user]);
 
+  console.log('Profile data:', profile_data);
+  console.log('User:', user);
+  
+
   if (!profile_data) {
     return <p>Loading profile...</p>;
   }
