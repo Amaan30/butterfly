@@ -1,6 +1,6 @@
 import React, { useState }/*, { useEffect, useState }*/ from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 // import axios from '../api/axios';
 // import { User } from '../types/user';
 //import { useLocation } from 'react-router-dom';
@@ -73,6 +73,13 @@ const Home: React.FC = () => {
           className='mx-2 p-2 rounded border-2 border-gray-700 bg-gray-900 w-1/4 ml-auto hidden md:flex' 
           value={searchQuery}
           onChange={handleSearchQueryChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log("Search submitted:", searchQuery);
+              // Call API or navigate to results page
+              Navigate(`${import.meta.env.VITE_API_URL}${searchQuery}`);
+            }
+          }}
         />
 
         <div id="notification" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2 md:ml-auto'>
