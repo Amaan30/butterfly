@@ -77,7 +77,7 @@ const Home: React.FC = () => {
             if (e.key === "Enter") {
               console.log("Search submitted:", searchQuery);
               // Call API or navigate to results page
-              Navigate(`${import.meta.env.VITE_API_URL}${searchQuery}`);
+              Navigate(`/${searchQuery}`);
             }
           }}
         />
