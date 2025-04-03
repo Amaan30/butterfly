@@ -1,4 +1,4 @@
-import React/*, { useEffect, useState }*/ from 'react';
+import React, { useState }/*, { useEffect, useState }*/ from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 // import axios from '../api/axios';
@@ -15,6 +15,7 @@ const Home: React.FC = () => {
 
   const {user} = useAuth();
   const username = user!.username;
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   //const [userData, setUserData] = useState<User | null>(null);
 
@@ -52,6 +53,12 @@ const Home: React.FC = () => {
     Navigate(`/${username}`);
   }
 
+  function handleSearchQueryChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    setSearchQuery(e.target.value);
+  }
+  console.log(searchQuery);
+  
+
   return (
     <div id='HomeMainContainer' className='bg-gray-300 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
@@ -64,6 +71,8 @@ const Home: React.FC = () => {
           type="text"
           placeholder='🔍 Search'
           className='mx-2 p-2 rounded border-2 border-gray-700 bg-gray-900 w-1/4 ml-auto hidden md:flex' 
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
         />
 
         <div id="notification" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2 md:ml-auto'>
