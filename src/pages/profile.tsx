@@ -11,7 +11,7 @@ const Profile: React.FC = () => {
   const [count, setCount] = React.useState(0);
 
   const {usernameProfile} = useParams();
-  const {user, setUser} = useAuth();
+  const {user} = useAuth();
   const logout = useAuth().logout;
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
@@ -88,7 +88,13 @@ const Profile: React.FC = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setUser((prevUser) => ({ ...prevUser, profilePicture: data.profilePicture })); // Update UI
+        // Update the local profile_data state
+      setProfile_data(prevData => {
+        return prevData ? {...prevData, profilePicture: data.profilePicture} : prevData;
+      });
+      
+      // You might want to refresh the page or use a context update function 
+      // to ensure the new profile picture is shown in the navbar too
       } else {
         console.error('Error uploading profile picture:', data.message);
       }
