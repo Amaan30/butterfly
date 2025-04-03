@@ -100,7 +100,11 @@ const Profile: React.FC = () => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => handleFileUpload(acceptedFiles[0]),
+    onDrop: async (acceptedFiles) => {
+      if (acceptedFiles && acceptedFiles.length > 0) {
+        await handleFileUpload(acceptedFiles[0]);
+      }
+    },
     accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.gif'] },
     maxSize: 2 * 1024 * 1024, // 2MB max file size
   });
