@@ -151,7 +151,7 @@ const Profile: React.FC = () => {
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-4 my-4 w-full rounded-lg shadow-lg top-16'>
           <div id="profilePic" className="relative w-32 h-32 rounded-full overflow-hidden mb-5 group">
             <img
-              src={`${import.meta.env.VITE_API_URL}${profile_data?.profilePicture || '/images/Default-pfp.jpg'}`}
+              src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${profile_data?.profilePicture || '/images/Default-pfp.jpg'}`}
               alt="Profile Picture"
               className="w-full h-full object-cover transition-opacity duration-300"
             />
