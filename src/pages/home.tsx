@@ -1,40 +1,14 @@
-import React, { useState }/*, { useEffect, useState }*/ from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { redirect, useNavigate } from 'react-router-dom';
-// import axios from '../api/axios';
-// import { User } from '../types/user';
-//import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
-  //useLocation is a hook from react-router-dom for getting the current location object
-  //useState is a hook from React for managing state in functional components
-  //MouseEvent is a built-in TypeScript interface for mouse events like button clicks
-  //HTMLButtonElement is a built-in TypeScript interface for button elements
 
   const {user} = useAuth();
   const username = user!.username;
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
-  //const [userData, setUserData] = useState<User | null>(null);
-
-  //const location = useLocation();
-
-  //fetching userdata
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       if(!user?._id) return;
-  //       const response = await axios.get(`/users/${user?._id}`);
-  //       setUserData(response.data);
-  //     } catch(error){
-  //       console.error("failed to fetch user data", error);
-  //     }
-  //   }
-  //   fetchUserData();
-  // }, [user, location]);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State to manage search query
   
   const logout = useAuth().logout;
 
@@ -76,7 +50,6 @@ const Home: React.FC = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               console.log("Search submitted:", searchQuery);
-              // Call API or navigate to results page
               Navigate(`/${searchQuery}`);
             }
           }}

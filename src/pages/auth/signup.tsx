@@ -69,6 +69,21 @@ const Signup: React.FC = () => {
       setLoading(false);
     }
   }
+
+  if(_loading){
+    return (
+      <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
+        <p className='text-blue-500'>Loading...</p>
+      </div>
+    );
+  }
+  if(_error) {
+    return (
+      <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
+        <p className='text-red-500'>{_error}</p>
+      </div>
+    );
+  }
   
   return (
     
