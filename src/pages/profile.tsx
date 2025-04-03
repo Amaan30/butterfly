@@ -141,7 +141,6 @@ const Profile: React.FC = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               console.log("Search submitted:", searchQuery);
-              // Call API or navigate to results page
               Navigate(`/${searchQuery}`);
             }
           }}

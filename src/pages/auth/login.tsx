@@ -55,6 +55,21 @@ const Login: React.FC = () => {
     }
   };
 
+  if(_loading){
+    return (
+      <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
+        <p className='text-blue-500'>Loading...</p>
+      </div>
+    );
+  }
+  if(_error) {
+    return (
+      <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
+        <p className='text-red-500'>{_error}</p>
+      </div>
+    );
+  }
+
   // Render the login form UI
   return (
     <div id='LoginContainer' className='flex justify-center bg-blue-100 h-screen w-screen'>
