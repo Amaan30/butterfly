@@ -72,7 +72,7 @@ const Home: React.FC = () => {
 
         <div id="userProfile" className='mx-2 p-3 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent flex items-center' onClick={handleProfileButton}>
           <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
-            <img src={user?.profilePicture} alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${user?.profilePicture || '/images/Default-pfp.jpg'}`} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
           <span className='px-2'>{user?.username}</span>
         </div>
