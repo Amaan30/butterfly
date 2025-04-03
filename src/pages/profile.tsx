@@ -16,6 +16,11 @@ const Profile: React.FC = () => {
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
   const [uploading, setUploading] = useState(false); // State to manage uploading status
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State to manage search query
+  const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchQuery(e.target.value); // Update search query state on input change
+  }
+  console.log(searchQuery);
 
   const isMyProfile = usernameProfile === user?.username;
 
@@ -131,6 +136,15 @@ const Profile: React.FC = () => {
           type="text"
           placeholder='🔍 Search'
           className='mx-2 p-2 rounded border-2 border-gray-700 bg-gray-900 w-1/4 ml-auto hidden md:flex' 
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log("Search submitted:", searchQuery);
+              // Call API or navigate to results page
+              Navigate(`/${searchQuery}`);
+            }
+          }}
         />
 
         <div id="notification" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2 md:ml-auto'>
