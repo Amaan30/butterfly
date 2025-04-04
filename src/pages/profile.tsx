@@ -129,8 +129,11 @@ const Profile: React.FC = () => {
   
   const handleToggleFollow = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    console.log("flag", isFollowing);
+    
 
     try {
+      console.log("flag", isFollowing);
       const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/follow/${usernameProfile}`, {
         method: isFollowing ? 'DELETE' : 'POST',
         credentials: 'include',
@@ -138,13 +141,16 @@ const Profile: React.FC = () => {
           'Content-Type': 'application/json',
         },
       });
+      console.log("flag", isFollowing);
 
       if (response.ok) {
         setIsFollowing(!isFollowing); // Toggle following status
+        console.log("flag", isFollowing);
       } else {
         console.error('Error toggling follow:', await response.json());
       }
     } catch (error) {
+      console.log("flag", isFollowing);
       console.error('Error:', error);
     }
   }
