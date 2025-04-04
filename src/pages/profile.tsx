@@ -200,9 +200,9 @@ const Profile: React.FC = () => {
             Bio: {user?.bio}
           </p>
           {isMyProfile && <button className='text-blue-500' onClick={handleEditProfileButton}>edit profile</button>}
-          {!isMyProfile && <button className='text-blue-500' onClick={handleToggleFollow}>
-            if(isFollowing) {`Unfollow ${usernameProfile}`} else {`Follow ${usernameProfile}`}
-          </button>}
+          {!isMyProfile && (<button className='text-blue-500' onClick={handleToggleFollow}>
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </button>)}
           
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
