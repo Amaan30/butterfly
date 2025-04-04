@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate, useParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { User } from '../types/user'; // Importing User type for TypeScript type checking
 import {useDropzone} from 'react-dropzone'; // Importing useDropzone for drag-and-drop file upload functionality
@@ -186,7 +186,7 @@ const Profile: React.FC = () => {
           <p className='text-gray-600'>
             Bio: {user?.bio}
           </p>
-          <a href="/edit_profile">Edit profile</a>
+          <button onClick={redirect(`/${user?.username}/edit_profile`)}>edit profile</button>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
