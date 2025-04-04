@@ -23,6 +23,8 @@ const Profile: React.FC = () => {
   console.log(searchQuery);
 
   const isMyProfile = usernameProfile === user?.username;
+  const isFollowing = false; // Placeholder for following status, can be updated based on your logic
+  const isFollower = false; // Placeholder for follower status, can be updated based on your logic
 
   console.log('isMyProfile:', isMyProfile);
 
@@ -124,10 +126,16 @@ const Profile: React.FC = () => {
     accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.gif'] },
     maxSize: 2 * 1024 * 1024, // 2MB max file size
   });
+  
+  function handleToggleFollow(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    e.preventDefault();
+  }
 
   if (!profile_data) {
     return <p>Loading profile...</p>;
   }
+
+
 
   return (
     <div id='ProfilePage' className='bg-gray-300 w-full min-h-screen'>
@@ -191,7 +199,10 @@ const Profile: React.FC = () => {
           <p className='text-gray-600'>
             Bio: {user?.bio}
           </p>
-          {isMyProfile && <button onClick={handleEditProfileButton}>edit profile</button>}
+          {isMyProfile && <button className='text-blue-500' onClick={handleEditProfileButton}>edit profile</button>}
+          {!isMyProfile && <button className='text-blue-500' onClick={handleToggleFollow}>
+            if(isFollowing) {`Unfollow ${usernameProfile}`} else {`Follow ${usernameProfile}`}
+          </button>}
           
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
