@@ -134,7 +134,7 @@ const Profile: React.FC = () => {
 
     try {
       console.log("flag 2", isFollowing);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${ isFollower ? 'unfollow' : 'follow'}/${usernameProfile}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/${ isFollowing ? 'unfollow' : 'follow'}/${usernameProfile}`, {
         method: isFollowing ? 'DELETE' : 'POST',
         credentials: 'include',
         headers: {
