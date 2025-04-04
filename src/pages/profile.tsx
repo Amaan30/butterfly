@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { User } from '../types/user'; // Importing User type for TypeScript type checking
 import {useDropzone} from 'react-dropzone'; // Importing useDropzone for drag-and-drop file upload functionality
