@@ -9,6 +9,7 @@ import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
 import Landing from './pages/landing';
 import Profile from './pages/profile';
+import EditProfile from './pages/editProfile';
 
 
 
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         <Route element={<ProtectedRoute/>}>
           <Route path="/home" element={<Home />} />
           <Route path="/:usernameProfile" element={<Profile/>} />
+          <Route path="/:usernameProfile/edit_profile" element={<EditProfile/>}/>
         </Route>
 
         {/* Protected Routes for users with specific roles*/}

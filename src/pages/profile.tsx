@@ -186,6 +186,7 @@ const Profile: React.FC = () => {
           <p className='text-gray-600'>
             Bio: {user?.bio}
           </p>
+          <a href="/edit_profile">Edit profile</a>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
