@@ -23,7 +23,7 @@ const Profile: React.FC = () => {
   console.log(searchQuery);
 
   const isMyProfile = usernameProfile === user?.username;
-  const isFollowing = false; // Placeholder for following status, can be updated based on your logic
+  const [isFollowing, setIsFollowing] = useState(false); // Placeholder for following status, can be updated based on your logic
   const isFollower = false; // Placeholder for follower status, can be updated based on your logic
 
   console.log('isMyProfile:', isMyProfile);
@@ -129,6 +129,7 @@ const Profile: React.FC = () => {
   
   function handleToggleFollow(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();
+    setIsFollowing(!isFollowing); // Toggle follow status
   }
 
   if (!profile_data) {
