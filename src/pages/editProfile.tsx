@@ -32,7 +32,7 @@ const EditProfile: React.FC = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}api/user/edit-profile`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}api/users/edit-profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
