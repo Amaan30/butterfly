@@ -74,6 +74,11 @@ const Profile: React.FC = () => {
     }
   }
 
+  function handleEditProfileButton(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.preventDefault();
+    Navigate(`/${user?.username}/edit_profile`);
+  }
+
   function handleProfileButton(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
     e.preventDefault();
     Navigate(`/${user?.username}`);
@@ -186,7 +191,7 @@ const Profile: React.FC = () => {
           <p className='text-gray-600'>
             Bio: {user?.bio}
           </p>
-          <button onClick={redirect(`/${user?.username}/edit_profile`)}>edit profile</button>
+          <button onClick={handleEditProfileButton}>edit profile</button>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
