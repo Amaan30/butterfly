@@ -127,9 +127,26 @@ const Profile: React.FC = () => {
     maxSize: 2 * 1024 * 1024, // 2MB max file size
   });
   
-  function handleToggleFollow(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  const handleToggleFollow = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setIsFollowing(!isFollowing); // Toggle follow status
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/follow/${usernameProfile}`, {
+        method: isFollowing ? 'DELETE' : 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setIsFollowing(!isFollowing); // Toggle following status
+      } else {
+        console.error('Error toggling follow:', await response.json());
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   if (!profile_data) {
