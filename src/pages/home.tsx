@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           a {user?.email}, {user?.username}
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
-          <p>Friends</p>
+          <p>Following</p>
           
         </div>
       </div>

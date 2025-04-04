@@ -177,8 +177,17 @@ const Profile: React.FC = () => {
               </div>
             )}
           </div>
-          <h1 className='text-2xl font-bold'>{profile_data?.name}</h1>
-          <p className='text-gray-600'>Bio: {user?.bio}</p>
+          <h1 className='text-2xl font-bold'>
+            {profile_data?.name}
+            <button>Change Name</button>
+          </h1>
+          <p className='text-gray-600'>
+            Username: {profile_data?.username}
+          </p>
+          <p className='text-gray-600'>
+            Bio: {user?.bio}
+            <button>Change bio</button>
+          </p>
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
             <span className='text-gray-600'>Following: 50</span>
