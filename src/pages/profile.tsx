@@ -67,6 +67,11 @@ const Profile: React.FC = () => {
     }
   }, [usernameProfile, user]);
 
+  console.log(profile_data);
+  console.log(isFollower);
+  
+  
+
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     try{
