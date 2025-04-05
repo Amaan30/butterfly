@@ -23,8 +23,9 @@ const Profile: React.FC = () => {
   console.log(searchQuery);
 
   const isMyProfile = usernameProfile === user?.username;
-  const [isFollowing, setIsFollowing] = useState(false); // Placeholder for following status, can be updated based on your logic
-  const isFollower = false; // Placeholder for follower status, can be updated based on your logic
+  const [isFollowing, setIsFollowing] = useState(false); // Am i following him?
+  
+  const isFollower = profile_data?.following && user?._id ? profile_data.following.includes(user._id) : false;  // Is he my follower?
 
   console.log('isMyProfile:', isMyProfile);
 
@@ -227,6 +228,8 @@ const Profile: React.FC = () => {
           {!isMyProfile && (<button className='text-blue-500' onClick={handleToggleFollow}>
             {isFollowing ? 'Unfollow' : 'Follow'}
           </button>)}
+
+          {isFollower && <p className='text-blue-500'>You are followed by {profile_data?.username}</p>}
           
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
