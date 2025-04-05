@@ -26,6 +26,7 @@ const Profile: React.FC = () => {
   const [isFollowing, setIsFollowing] = useState(false); // Am i following him?
   
   const isFollower = profile_data?.following && user?._id ? profile_data.following.includes(user._id) : false;  // Is he my follower?
+  setIsFollowing(user?.following && profile_data?._id ? user.following?.includes(profile_data?._id) : false); // Set the isFollowing state based on the fetched data
 
   console.log('isMyProfile:', isMyProfile);
 
@@ -69,8 +70,6 @@ const Profile: React.FC = () => {
 
   console.log(profile_data);
   console.log(isFollower);
-  
-  
 
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
