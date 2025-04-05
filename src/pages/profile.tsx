@@ -26,7 +26,6 @@ const Profile: React.FC = () => {
   const [isFollowing, setIsFollowing] = useState(false); // Am i following him?
   
   const isFollower = profile_data?.following && user?._id ? profile_data.following.includes(user._id) : false;  // Is he my follower?
-  setIsFollowing(user?.following && profile_data?._id ? user.following?.includes(profile_data?._id) : false); // Set the isFollowing state based on the fetched data
 
   console.log('isMyProfile:', isMyProfile);
 
@@ -50,6 +49,7 @@ const Profile: React.FC = () => {
         if (response.ok) {
           console.log('User data fetched:', data);
           setProfile_data(data);
+          setIsFollowing(user?.following && profile_data?._id ? user.following?.includes(profile_data?._id) : false); // Set the isFollowing state based on the fetched data
         }else{
           console.error('Error fetching user:', data.message);
           return null;
