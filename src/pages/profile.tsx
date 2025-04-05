@@ -233,7 +233,8 @@ const Profile: React.FC = () => {
           {!isMyProfile && (<button className='text-blue-500' onClick={handleToggleFollow}>
             {isFollowing ? 'Unfollow' : 'Follow'}
           </button>
-          ) && (
+          )}
+          {!isMyProfile && (
             isFollower ? <span className='text-gray-600'>You are followed by {profile_data?.name}</span> : <span className='text-gray-600'>You are not followed by {profile_data?.name}</span>
           )}          
           
