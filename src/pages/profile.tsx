@@ -230,6 +230,7 @@ const Profile: React.FC = () => {
           </button>)}
 
           {isFollower && <p className='text-blue-500'>You are followed by {profile_data?.username}</p>}
+          {!isFollower && <p className='text-blue-500'>{profile_data?.username} doesnt follow you</p>}
           
           <div id="profileStats" className='flex space-x-4 mt-5'>
             <span className='text-gray-600'>Followers: 100</span>
