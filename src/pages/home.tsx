@@ -12,6 +12,8 @@ const Home: React.FC = () => {
   
   const logout = useAuth().logout;
 
+  
+
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     try{
@@ -76,8 +78,20 @@ const Home: React.FC = () => {
           a {user?.email}, {user?.username}
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
-          <p>Following</p>
-          
+          {!user?.following && 
+          <div className='flex flex-col items-center justify-center h-full'>
+            <h2 className='text-xl font-bold'>No friends yet</h2>
+            <p className='text-gray-500'>Start following people to see their posts here!</p>
+          </div>}
+          {user?.following && user?.following.length > 0 &&
+          <div className='flex flex-col items-center justify-center h-full'>
+            <h2 className='text-xl font-bold'>Your Friends</h2>
+            <ul className='list-disc'>
+              {user?.following.map((friend, index) => (
+                <li key={index} className='text-gray-700'>{friend}</li>
+              ))}
+            </ul>
+          </div>}
         </div>
       </div>
     </div>
