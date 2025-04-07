@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { FollowInfoResponse, PublicUserInfo } from '../types/user';
 
 const Home: React.FC = () => {
-  
+
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
 
   const {user} = useAuth();
@@ -11,7 +12,33 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>(""); // State to manage search query
   
   const logout = useAuth().logout;
+  const [followingInfo, setFollowingInfo] = useState<FollowInfoResponse | null>(null); // State to manage following info
 
+  useEffect(() => {
+    const fetchFollowerInfo = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/users/getfollowing/${username}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+  
+        if (response.ok) {
+          setFollowingInfo(data);
+        } else {
+          console.error('Error fetching following info:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching follower info:', error);
+      }
+    };
+  
+    fetchFollowerInfo(); // <- Don't forget to call it!
+  }, [username]); // <- dependency added
   
 
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
@@ -87,8 +114,15 @@ const Home: React.FC = () => {
           <div className='flex flex-col items-center justify-center h-full'>
             <h2 className='text-xl font-bold'>Your Friends</h2>
             <ul className='list-disc'>
-              {user?.following.map((friend, index) => (
-                <li key={index} className='text-gray-700'>{friend}</li>
+              {followingInfo && followingInfo.following.map((friend: PublicUserInfo) => (
+                <li key={friend._id} className='flex items-center justify-between w-full p-2 border-b border-gray-200'>
+                  <div className='flex items-center'>
+                    <div className='w-8 h-8 bg-contain rounded-full overflow-hidden mr-2'>
+                      <img src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
+                    </div>
+                    <span>{friend.username}</span>
+                  </div>
+                </li>
               ))}
             </ul>
           </div>}
