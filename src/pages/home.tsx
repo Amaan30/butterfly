@@ -102,7 +102,13 @@ const Home: React.FC = () => {
       
       <div id="mainPage" className='flex w-full mt-16'>
         <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
-          a {user?.email}, {user?.username}
+          <div id="create-new-component">
+            <div className='flex items-center justify-between'>
+              <h2 className='text-2xl font-bold'>Create New</h2>
+              <button className='bg-blue-500 text-white p-2 rounded-lg'>Post</button>
+            </div>
+            <textarea className='w-full h-32 p-4 border border-gray-300 rounded-lg mt-4' placeholder="What's on your mind?" />
+          </div>
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
           {user?.following?.length === 0 && 
