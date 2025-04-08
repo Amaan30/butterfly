@@ -25,7 +25,7 @@ const CreatePost = () => {
         <p>Bio: {user?.bio}</p>
         <p>Followers: {user?.followers?.length || 0}</p>
         <p>Following: {user?.following?.length || 0}</p>
-        <p>Profile Picture: <img src={`${import.meta.env.VITE_API_URL}${user?.profilePicture || '/images/Default-pfp.jpg'}`} alt="Profile" className="w-16 h-16 rounded-full" /></p>
+        <p>Profile Picture: <img src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${user?.profilePicture || '/images/Default-pfp.jpg'}`} alt="Profile" className="w-16 h-16 rounded-full" /></p>
       </div>
     </div>
   )
