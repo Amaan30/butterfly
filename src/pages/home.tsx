@@ -124,6 +124,7 @@ const Home: React.FC = () => {
                 </div>
               {/* {))} */}
             </div>
+            </div>
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
           {user?.following?.length === 0 && 
@@ -153,4 +154,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Home;
