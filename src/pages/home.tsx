@@ -105,7 +105,8 @@ const Home: React.FC = () => {
           <div id="create-new-component">
             <div className='flex items-center justify-between'>
               <h2 className='text-2xl font-bold'>Create New</h2>
-              <div>
+              <div className='flex gap-2'>
+                <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Video</button>
                 <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Image</button>
                 <button className='bg-blue-500 text-white p-2 rounded-lg'>Post</button>
               </div>
