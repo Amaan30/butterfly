@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
           <div id="feed-header" className='flex items-center justify-between'>
             <h1 className='text-3xl font-bold'>Welcome back, {user?.username}!</h1>
-            <button className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900' onClick={() => Navigate('/createPost')}>Create Post</button>
+            <button className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900' onClick={() => Navigate(`/${username}/create_post`)}>Create Post</button>
           </div>
           <div id="feed-list-component" className='mt-4'>
             <h2 className='text-2xl font-bold'>Feed</h2>
