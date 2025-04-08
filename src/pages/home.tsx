@@ -105,8 +105,10 @@ const Home: React.FC = () => {
           <div id="create-new-component">
             <div className='flex items-center justify-between'>
               <h2 className='text-2xl font-bold'>Create New</h2>
-              <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Image</button>
-              <button className='bg-blue-500 text-white p-2 rounded-lg'>Post</button>
+              <div>
+                <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Image</button>
+                <button className='bg-blue-500 text-white p-2 rounded-lg'>Post</button>
+              </div>
             </div>
             <textarea className='w-full h-32 p-4 border border-gray-300 rounded-lg mt-4' placeholder="What's on your mind?" />
           </div>
