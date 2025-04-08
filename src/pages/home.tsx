@@ -117,12 +117,12 @@ const Home: React.FC = () => {
             <h2 className='text-2xl font-bold'>Feed</h2>
             {/* Feed items will go here */}
             <div className='flex flex-col gap-4'>
-              {user?.posts?.map((post: any) => (
-                <div key={post._id} className='p-4 border border-gray-300 rounded-lg'>
-                  <h3 className='text-xl font-bold'>{post.title}</h3>
-                  <p>{post.content}</p>
+              {/* {user?.posts?.map((post: any) => ( */}
+                <div key="post._id" className='p-4 border border-gray-300 rounded-lg'>
+                  <h3 className='text-xl font-bold'>post.title</h3>
+                  <p>post.content</p>
                 </div>
-              ))}
+              {/* {))} */}
             </div>
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
