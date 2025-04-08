@@ -10,7 +10,7 @@ import Signup from './pages/auth/signup';
 import Landing from './pages/landing';
 import Profile from './pages/profile';
 import EditProfile from './pages/editProfile';
-
+import CreatePost from './pages/createPost';
 
 
 const App: React.FC = () => {

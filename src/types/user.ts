@@ -18,3 +18,16 @@ export interface FollowInfoResponse {
   followers: PublicUserInfo[];
   following: PublicUserInfo[];
 }
+
+export interface PostSchema {
+  _id: string;
+  title: string;
+  video?: string;
+  content: string;
+  image?: string;
+  author: string;
+  createdAt: Date;
+  updatedAt: Date;
+  likes: string[];
+  //comments: Comment[];
+}

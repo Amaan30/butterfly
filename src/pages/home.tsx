@@ -102,16 +102,9 @@ const Home: React.FC = () => {
       
       <div id="mainPage" className='flex w-full mt-16'>
         <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
-          <div id="create-new-component">
-            <div className='flex items-center justify-between'>
-              <h2 className='text-2xl font-bold'>Create New</h2>
-              <div className='flex gap-2'>
-                <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Video</button>
-                <button className='bg-blue-500 text-white p-2 rounded-lg'>Add Image</button>
-                <button className='bg-blue-500 text-white p-2 rounded-lg'>Post</button>
-              </div>
-            </div>
-            <textarea className='w-full h-32 p-4 border border-gray-300 rounded-lg mt-4' placeholder="What's on your mind?" />
+          <div id="feed-header" className='flex items-center justify-between'>
+            <h1 className='text-3xl font-bold'>Welcome back, {user?.username}!</h1>
+            <button className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900' onClick={() => Navigate('/createPost')}>Create Post</button>
           </div>
           <div id="feed-list-component" className='mt-4'>
             <h2 className='text-2xl font-bold'>Feed</h2>
