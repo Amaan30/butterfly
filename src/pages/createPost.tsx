@@ -62,7 +62,7 @@ const CreatePost = () => {
         </label>
 
         <textarea
-          name="postContent"
+          name="content"
           className="w-full h-32 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="What's on your mind?"
           required
