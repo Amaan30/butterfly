@@ -5,20 +5,39 @@ import { useNavigate } from 'react-router-dom'; // Importing useNavigate for nav
 const CreatePost = () => {
   const { user } = useAuth(); // Getting the authenticated user from the useAuth hook
   const navigate = useNavigate(); // Initializing the navigate function for navigation
+
+
+  const handlePostCreation = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try{
+      const formdata = new FormData(e.currentTarget); // Using FormData to handle file uploads
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formdata, //formdata sets the content type automatically to multipart/form-data
+      });
+      const data = await response.json();
+      console.log(data);
+      
+      if (response.ok) {
+        console.log('Post created successfully:', data);
+        navigate('/home'); // Redirect to home after successful post creation
+      } else {
+        console.error('Error creating post:', data.message);
+      }
+    } catch(err){
+      console.error('Error creating post:', err);
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Create a New Post</h1>
       <form
         className="bg-white p-6 rounded-xl shadow-md w-96 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          const postContent = formData.get('postContent');
-          const title = formData.get('title');
-          const imageOrVideo = formData.get('media');
-          console.log({ title, postContent, imageOrVideo });
-          navigate('/');
-        }}
+        onSubmit={handlePostCreation} // Function to handle post creation
       >
         <input
           type="text"
