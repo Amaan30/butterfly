@@ -151,7 +151,7 @@ const Home: React.FC = () => {
                       {post.mediaType === 'video' ? (
                         <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
                       ) : (
-                        <img src={post.media} alt={post.title} className="max-h-[500px] w-full object-cover rounded" />
+                        <img src={post.media} alt={post.title} className="max-w-full max-h-[500px] w-auto h-auto object-cover rounded" />
                       )}
                     </div>
                   )}
