@@ -53,7 +53,7 @@ const CreatePost = () => {
   }, [previewURL]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-auto bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Create a New Post</h1>
       <form
         className="bg-white p-6 rounded-xl shadow-md w-96 space-y-4"
@@ -81,11 +81,24 @@ const CreatePost = () => {
             onChange={(e) => handleFileChange(e)}
           />
 
+        <div className="w-full h-64 overflow-hidden flex items-center justify-center bg-gray-100 rounded mb-4">
           {previewURL && previewType && (
-            previewType.startsWith('video')
-              ? <video src={previewURL} controls className="w-full rounded mb-4" />
-              : <img src={previewURL} alt="preview" className="w-full rounded mb-4" />
+            previewType.startsWith("video") ? (
+              <video
+                src={previewURL}
+                controls
+                className="max-h-full max-w-full object-contain"
+              />
+            ) : (
+              <img
+                src={previewURL}
+                alt="Preview"
+                className="max-h-full max-w-full object-contain"
+              />
+            )
           )}
+        </div>
+
         </label>
 
         <textarea
