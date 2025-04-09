@@ -147,7 +147,7 @@ const Home: React.FC = () => {
                   </div>
 
                   {post.media && (
-                    <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4">
+                    <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 aspect-video">
                       {post.mediaType === 'video' ? (
                         <video src={post.media} controls className="w-full h-full object-contain rounded" />
                       ) : (
