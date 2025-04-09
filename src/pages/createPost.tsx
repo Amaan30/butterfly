@@ -53,7 +53,7 @@ const CreatePost = () => {
   }, [previewURL]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-auto bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Create a New Post</h1>
       <form
         className="bg-white p-6 rounded-xl shadow-md w-96 space-y-4"
