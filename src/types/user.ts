@@ -22,9 +22,9 @@ export interface FollowInfoResponse {
 export interface PostSchema {
   _id: string;
   title: string;
-  video?: string;
   content: string;
-  image?: string;
+  media?: string;
+  mediaType?: string;
   author: string;
   createdAt: Date;
   updatedAt: Date;
