@@ -137,7 +137,7 @@ const Home: React.FC = () => {
           <div id="feed-list-component" className='mt-4'>
             <h2 className='text-2xl font-bold'>Feed</h2>
             {/* Feed items will go here */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 mt-4 px-4">
               {posts?.map((post: PostSchema) => (
                 <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg">
                   
@@ -147,11 +147,11 @@ const Home: React.FC = () => {
                   </div>
 
                   {post.media && (
-                    <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 aspect-video">
+                    <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
                       {post.mediaType === 'video' ? (
-                        <video src={post.media} controls className="w-full h-full object-contain rounded" />
+                        <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
                       ) : (
-                        <img src={post.media} alt={post.title} className="w-full h-full object-cover rounded" />
+                        <img src={post.media} alt={post.title} className="max-h-[500px] w-full object-cover rounded" />
                       )}
                     </div>
                   )}
