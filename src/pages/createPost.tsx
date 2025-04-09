@@ -75,9 +75,9 @@ const CreatePost = () => {
           />
 
           {previewURL && (
-            previewURL.includes('video') 
-            ? <video className="mt-2 w-full h-auto rounded-lg" controls src={previewURL} /> // Video preview
-            : <img className="mt-2 w-full h-auto rounded-lg" src={previewURL} alt="Preview" /> // Image preview
+            previewURL.includes('video')
+              ? <video src={previewURL} controls className="w-full rounded mb-4" />
+              : <img src={previewURL} alt="preview" className="w-full rounded mb-4" />
           )}
         </label>
 
