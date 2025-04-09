@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth'; // Importing the useAuth hook to manage authentication
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate for navigation
 
 const CreatePost = () => {
   const { user } = useAuth(); // Getting the authenticated user from the useAuth hook
   const navigate = useNavigate(); // Initializing the navigate function for navigation
+  const [loading, setLoading] = useState(false); // State to manage loading status
+  const [previewURL, setPreviewURL] = useState<string | null>(null);
 
 
   const handlePostCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when starting the post creation process
 
     try{
       const formdata = new FormData(e.currentTarget); // Using FormData to handle file uploads
@@ -29,8 +32,18 @@ const CreatePost = () => {
       }
     } catch(err){
       console.error('Error creating post:', err);
+    } finally {
+      setLoading(false); // Set loading to false after the post creation process is finished
     }
   }
+
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewURL(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -58,7 +71,14 @@ const CreatePost = () => {
             name="media"
             accept="image/*,video/*"
             className="hidden"
+            onChange={(e) => handleFileChange(e)}
           />
+
+          {previewURL && (
+            previewURL.includes('video') 
+            ? <video className="mt-2 w-full h-auto rounded-lg" controls src={previewURL} /> // Video preview
+            : <img className="mt-2 w-full h-auto rounded-lg" src={previewURL} alt="Preview" /> // Image preview
+          )}
         </label>
 
         <textarea
@@ -68,12 +88,10 @@ const CreatePost = () => {
           required
         ></textarea>
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
-        >
-          Create Post
+        <button type="submit" disabled={loading} className="bg-blue-500 text-white py-2 px-4 rounded">
+          {loading ? 'Posting...' : 'Create Post'}
         </button>
+
       </form>
 
       <button className="mt-4 text-blue-500" onClick={() => navigate('/home')}>Back to Home</button> {/* Button to go back to home */}
