@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth'; // Importing the useAuth hook to manage authentication
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate for navigation
 
@@ -7,7 +7,7 @@ const CreatePost = () => {
   const navigate = useNavigate(); // Initializing the navigate function for navigation
   const [loading, setLoading] = useState(false); // State to manage loading status
   const [previewURL, setPreviewURL] = useState<string | null>(null);
-
+  const [previewType, setPreviewType] = useState<string | null>(null);
 
   const handlePostCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,8 +42,15 @@ const CreatePost = () => {
     const file = e.target.files?.[0];
     if (file) {
       setPreviewURL(URL.createObjectURL(file));
+      setPreviewType(file.type);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewURL) URL.revokeObjectURL(previewURL);
+    };
+  }, [previewURL]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -74,8 +81,8 @@ const CreatePost = () => {
             onChange={(e) => handleFileChange(e)}
           />
 
-          {previewURL && (
-            previewURL.includes('video')
+          {previewURL && previewType && (
+            previewType.startsWith('video')
               ? <video src={previewURL} controls className="w-full rounded mb-4" />
               : <img src={previewURL} alt="preview" className="w-full rounded mb-4" />
           )}
