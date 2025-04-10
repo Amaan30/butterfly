@@ -174,13 +174,15 @@ const Home: React.FC = () => {
             <h2 className='text-xl font-bold'>Your Friends</h2>
             <ul className='list-disc'>
               {followingInfo && followingInfo.following.map((friend: PublicUserInfo) => (
-                <li key={friend._id} className='flex items-center justify-between w-full p-2 border-b border-gray-200 hover:bg-blue-200 hover:underline' onClick={() => Navigate(`/${friend.username}`)}>
-                  <div className='flex items-center'>
-                    <div className='w-8 h-8 bg-contain rounded-full overflow-hidden mr-2'>
-                      <img src={`${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
+                <li key={friend._id} className='flex items-center justify-between w-full p-2 border-b border-gray-200' >
+                  <button onClick={() => Navigate(`/${friend.username}`)} className='flex items-center justify-between w-full p-2 border-b border-gray-200 hover:bg-blue-200 hover:underline cursor-pointer transition-colors duration-200 text-left rounded'>
+                    <div className='flex items-center'>
+                      <div className='w-8 h-8 bg-contain rounded-full overflow-hidden mr-2'>
+                        <img src={`${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
+                      </div>
+                      <span>{friend.username}</span>
                     </div>
-                    <span>{friend.username}</span>
-                  </div>
+                  </button>
                 </li>
               ))}
             </ul>
