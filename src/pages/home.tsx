@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { FollowInfoResponse, PublicUserInfo } from '../types/user';
@@ -18,6 +18,12 @@ const Home: React.FC = () => {
   const [posts, setPosts] = useState<PostSchema[]>([]); // State to manage posts
   const [feed, setFeed] = useState<PostSchema[]>([]); // State to manage feed
 
+  const [page, setPage] = useState(1); // State to manage pagination
+  const [hasMorePages, setHasMorePages] = useState(true); // State to manage if there are more pages
+
+  const [loading, setLoading] = useState(false); // State to manage loading state
+
+  
   useEffect(() => {
     const fetchFollowerInfo = async () => {
       try {
@@ -30,7 +36,7 @@ const Home: React.FC = () => {
         });
         const data = await response.json();
         console.log(data);
-  
+        
         if (response.ok) {
           setFollowingInfo(data);
         } else {
@@ -55,7 +61,7 @@ const Home: React.FC = () => {
           },
         });
         const data = await response.json();
-  
+        
         if (response.ok) {
           console.log('Posts fetched successfully:', data);
           setPosts(data); // <- Set the posts state with the fetched data
@@ -68,7 +74,7 @@ const Home: React.FC = () => {
     };
     const fetchFeed = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/feed`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/feed?page=${page}&limit=5`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -78,7 +84,13 @@ const Home: React.FC = () => {
         const data = await response.json();
         if(response.ok) {
           console.log('Feed fetched successfully:', data);
-          setFeed(data); // <- Set the posts state with the fetched data
+          if (data.length < 5) {
+            setHasMorePages(false); // No more pages to load
+          }
+          else {
+            setFeed((prevFeed) => [...prevFeed, ...data]); // Append new posts to the existing feed
+            setPage((prevPage) => prevPage + 1); // Increment the page number for the next fetch
+          }
         }
         else {
           console.error('Error fetching feed:', data.message);
@@ -87,12 +99,24 @@ const Home: React.FC = () => {
         console.error('Error fetching feed:', error);
       }
     }
-
+    
     fetchPosts(); // <- Don't forget to call it!
     fetchFeed(); // <- Don't forget to call it!
   }, [username]); // <- dependency added
 
-
+  //intersection observer for infinite scroll
+  const observer = useRef<IntersectionObserver | null>(null);
+  const LastPostRef = useCallback((node: HTMLDivElement | null) => {
+    if (loading) return; // Prevent loading if already loading
+    if (observer.current) observer.current.disconnect(); // Disconnect the previous observer
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasMorePages) {
+        fetchFeed();
+      }
+    });
+    if (node) observer.current.observe(node); // Observe the last post
+  }, [loading, hasMorePages]); // Dependencies for the callback
+  
   function handleLogoutButton(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     try{
@@ -193,35 +217,41 @@ const Home: React.FC = () => {
             <h2 className='text-2xl font-bold'>Feed</h2>
             {/* Feed items will go here */}
             <div className="flex flex-col gap-6 mt-4 px-4">
-              {feed?.map((post: PostSchema) => (
-                <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg">
-                  
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-2xl font-semibold text-gray-800">{post.title}</h3>
-                    <span className="text-sm text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</span>
-                  </div>
-
-                  {post.media && (
-                    <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
-                      {post.mediaType === 'video' ? (
-                        <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
-                      ) : (
-                        <img src={post.media} alt={post.title} className="max-w-full max-h-[500px] w-auto h-auto object-cover rounded" />
-                      )}
+              {feed?.map((post: PostSchema, index: number) => {
+                const isLastPost = index === feed.length - 1;
+                return (
+                  <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg" ref={isLastPost ? LastPostRef : null}>
+                    
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-2xl font-semibold text-gray-800">{post.title}</h3>
+                      <span className="text-sm text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
-                  )}
 
-                  <p className="text-gray-700 leading-relaxed">{post.content}</p>
-                  <div className="flex items-center justify-between mt-4">
-                  <button
-                    className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900"
-                    onClick={() => toggleLike(post._id)}
-                  >
-                    {post.likes?.includes(user!._id) ? 'Unlike' : 'Like'} ({post.likes?.length || 0})
-                  </button>
-                  <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
+                    {post.media && (
+                      <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
+                        {post.mediaType === 'video' ? (
+                          <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
+                        ) : (
+                          <img src={post.media} alt={post.title} className="max-w-full max-h-[500px] w-auto h-auto object-cover rounded" />
+                        )}
+                      </div>
+                    )}
+
+                    <p className="text-gray-700 leading-relaxed">{post.content}</p>
+                    <div className="flex items-center justify-between mt-4">
+                    <button
+                      className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900"
+                      onClick={() => toggleLike(post._id)}
+                    >
+                      {post.likes?.includes(user!._id) ? 'Unlike' : 'Like'} ({post.likes?.length || 0})
+                    </button>
+                    <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
+                    </div>
                   </div>
-                </div>
+                )
+              }
+
+
               ))}
             </div>
           </div>
