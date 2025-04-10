@@ -177,7 +177,7 @@ const Home: React.FC = () => {
                 <li key={friend._id} className='flex items-center justify-between w-full p-2 border-b border-gray-200'>
                   <div className='flex items-center'>
                     <div className='w-8 h-8 bg-contain rounded-full overflow-hidden mr-2'>
-                      <img src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
+                      <img src={`${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
                     </div>
                     <span>{friend.username}</span>
                   </div>
