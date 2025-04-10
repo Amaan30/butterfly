@@ -7,22 +7,49 @@ import { PostSchema } from '../types/user';
 const Home: React.FC = () => {
 
   const Navigate = useNavigate(); //useNavigate is a hook from react-router-dom for navigation
-
+  
   const {user} = useAuth();
   const username = user!.username;
   const [searchQuery, setSearchQuery] = useState<string>(""); // State to manage search query
   
   const logout = useAuth().logout;
   const [followingInfo, setFollowingInfo] = useState<FollowInfoResponse | null>(null); // State to manage following info
-
+  
   const [posts, setPosts] = useState<PostSchema[]>([]); // State to manage posts
   const [feed, setFeed] = useState<PostSchema[]>([]); // State to manage feed
-
+  
   const [page, setPage] = useState(1); // State to manage pagination
   const [hasMorePages, setHasMorePages] = useState(true); // State to manage if there are more pages
-
+  
   const [loading, setLoading] = useState(false); // State to manage loading state
-
+  
+  const fetchFeed = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/feed?page=${page}&limit=5`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      if(response.ok) {
+        console.log('Feed fetched successfully:', data);
+        if (data.length < 5) {
+          setHasMorePages(false); // No more pages to load
+        }
+        else {
+          setFeed((prevFeed) => [...prevFeed, ...data]); // Append new posts to the existing feed
+          setPage((prevPage) => prevPage + 1); // Increment the page number for the next fetch
+        }
+      }
+      else {
+        console.error('Error fetching feed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching feed:', error);
+    }
+  }
   
   useEffect(() => {
     const fetchFollowerInfo = async () => {
@@ -72,33 +99,6 @@ const Home: React.FC = () => {
         console.error('Error fetching posts:', error);
       }
     };
-    const fetchFeed = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/feed?page=${page}&limit=5`, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        if(response.ok) {
-          console.log('Feed fetched successfully:', data);
-          if (data.length < 5) {
-            setHasMorePages(false); // No more pages to load
-          }
-          else {
-            setFeed((prevFeed) => [...prevFeed, ...data]); // Append new posts to the existing feed
-            setPage((prevPage) => prevPage + 1); // Increment the page number for the next fetch
-          }
-        }
-        else {
-          console.error('Error fetching feed:', data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching feed:', error);
-      }
-    }
     
     fetchPosts(); // <- Don't forget to call it!
     fetchFeed(); // <- Don't forget to call it!
@@ -252,7 +252,7 @@ const Home: React.FC = () => {
               }
 
 
-              ))}
+              )}
             </div>
           </div>
         </div>
