@@ -16,6 +16,7 @@ const Home: React.FC = () => {
   const [followingInfo, setFollowingInfo] = useState<FollowInfoResponse | null>(null); // State to manage following info
 
   const [posts, setPosts] = useState<PostSchema[]>([]); // State to manage posts
+  const [feed, setFeed] = useState<PostSchema[]>([]); // State to manage feed
 
   useEffect(() => {
     const fetchFollowerInfo = async () => {
@@ -65,7 +66,30 @@ const Home: React.FC = () => {
         console.error('Error fetching posts:', error);
       }
     };
+    const fetchFeed = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/feed`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        if(response.ok) {
+          console.log('Feed fetched successfully:', data);
+          setFeed(data); // <- Set the posts state with the fetched data
+        }
+        else {
+          console.error('Error fetching feed:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching feed:', error);
+      }
+    }
+
     fetchPosts(); // <- Don't forget to call it!
+    fetchFeed(); // <- Don't forget to call it!
   }, [username]); // <- dependency added
 
 
@@ -138,7 +162,7 @@ const Home: React.FC = () => {
             <h2 className='text-2xl font-bold'>Feed</h2>
             {/* Feed items will go here */}
             <div className="flex flex-col gap-6 mt-4 px-4">
-              {posts?.map((post: PostSchema) => (
+              {feed?.map((post: PostSchema) => (
                 <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg">
                   
                   <div className="flex items-center justify-between mb-2">
