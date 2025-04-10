@@ -181,6 +181,10 @@ const Home: React.FC = () => {
                   )}
 
                   <p className="text-gray-700 leading-relaxed">{post.content}</p>
+                  <div className="flex items-center justify-between mt-4">
+                    <button className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900">Like</button>
+                    <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
+                  </div>
                 </div>
               ))}
             </div>
