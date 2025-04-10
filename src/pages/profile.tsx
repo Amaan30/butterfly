@@ -200,7 +200,7 @@ const Profile: React.FC = () => {
 
         <div id="userProfile" className='mx-2 p-3 hover:bg-indigo-900 hover:border-b-blue-500 border-b-4 border-transparent flex items-center' onClick={handleProfileButton}>
           <div id="profilePicComponent" className='w-9 h-9 bg-contain rounded-full overflow-hidden mx-2'>
-            <img src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${user?.profilePicture || '/images/Default-pfp.jpg'}`} alt="Profile Picture" className="w-full h-full object-cover" />
+            <img src={`${user?.profilePicture || '/images/Default-pfp.jpg'}`} alt="Profile Picture" className="w-full h-full object-cover" />
           </div>
           <span className='px-2'>{user?.username}</span>
         </div>
@@ -212,7 +212,7 @@ const Profile: React.FC = () => {
         <div id="profileCard" className='flex flex-col items-center justify-center bg-white p-4 my-4 w-full rounded-lg shadow-lg top-16'>
           <div id="profilePic" className="relative w-32 h-32 rounded-full overflow-hidden mb-5 group">
             <img
-              src={`${import.meta.env.VITE_API_URL.replace(/\/$/, '')}${profile_data?.profilePicture || '/images/Default-pfp.jpg'}`}
+              src={`${profile_data?.profilePicture || '/images/Default-pfp.jpg'}`}
               alt="Profile Picture"
               className="w-full h-full object-cover transition-opacity duration-300"
             />
