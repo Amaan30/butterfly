@@ -113,6 +113,37 @@ const Home: React.FC = () => {
   }
   console.log(searchQuery);
   
+  const toggleLike = async (postId: string) => {
+    setFeed((prevFeed) =>
+      prevFeed.map((post) =>
+        post._id === postId
+          ? {
+              ...post,
+              likes: post.likes?.includes(user!._id)
+                ? post.likes.filter((id) => id !== user!._id)
+                : [...(post.likes || []), user!._id],
+            }
+          : post
+      )
+    );
+  
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/like/${postId}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to toggle like');
+      }
+    } catch (error) {
+      console.error('Error toggling like:', error);
+      // Optionally revert UI update if needed
+    }
+  };
+  
 
   return (
     <div id='HomeMainContainer' className='bg-gray-300 w-full min-h-screen'>
@@ -182,13 +213,17 @@ const Home: React.FC = () => {
 
                   <p className="text-gray-700 leading-relaxed">{post.content}</p>
                   <div className="flex items-center justify-between mt-4">
-                    <button className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900">Like</button>
-                    <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
+                  <button
+                    className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900"
+                    onClick={() => toggleLike(post._id)}
+                  >
+                    {post.likes?.includes(user!._id) ? 'Unlike' : 'Like'} ({post.likes?.length || 0})
+                  </button>
+                  <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
         </div>
         <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
