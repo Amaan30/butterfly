@@ -35,6 +35,10 @@ const Home: React.FC = () => {
       const data = await response.json();
       if(response.ok) {
         console.log('Feed fetched successfully:', data);
+        if (data.length > 0) {
+          setFeed((prevFeed) => [...prevFeed, ...data]);
+          setPage((prevPage) => prevPage + 1);
+        }
         if (data.length < 5) {
           setHasMorePages(false); // No more pages to load
         }
@@ -230,9 +234,9 @@ const Home: React.FC = () => {
                     {post.media && (
                       <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
                         {post.mediaType === 'video' ? (
-                          <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
+                          <video src={post.media} controls className="max-h-[800px] w-full bg-black object-contain rounded" />
                         ) : (
-                          <img src={post.media} alt={post.title} className="max-w-full max-h-[500px] w-auto h-auto object-cover rounded" />
+                          <img src={post.media} alt={post.title} className="max-w-full max-h-[800px] w-auto h-auto object-cover rounded" />
                         )}
                       </div>
                     )}
@@ -250,8 +254,6 @@ const Home: React.FC = () => {
                   </div>
                 )
               }
-
-
               )}
             </div>
           </div>
