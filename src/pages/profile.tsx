@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { User } from '../types/user'; // Importing User type for TypeScript type checking
+import { PostSchema, User } from '../types/user'; // Importing User type for TypeScript type checking
 import {useDropzone} from 'react-dropzone'; // Importing useDropzone for drag-and-drop file upload functionality
 
 const Profile: React.FC = () => {
 
   //Test variables
-  const [count, setCount] = React.useState(0);
-
   const {usernameProfile} = useParams();
   const {user} = useAuth();
   const logout = useAuth().logout;
@@ -17,6 +15,13 @@ const Profile: React.FC = () => {
   const [profile_data, setProfile_data] = useState<User | null>(null); // State to store profile data, initialized as null
   const [uploading, setUploading] = useState(false); // State to manage uploading status
   const [searchQuery, setSearchQuery] = useState<string>(""); // State to manage search query
+
+  const [userPosts, setUserPosts] = useState<PostSchema[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
+  const POSTS_PER_PAGE = 6;
+
+
   const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchQuery(e.target.value); // Update search query state on input change
   }
@@ -28,6 +33,29 @@ const Profile: React.FC = () => {
   const isFollower = profile_data?.following && user?._id ? profile_data.following.includes(user._id) : false;  // Is he my follower?
 
   console.log('isMyProfile:', isMyProfile);
+
+  const fetchUserPosts = async (page: number) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}api/posts/${usernameProfile}?page=${page}&limit=${POSTS_PER_PAGE}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        if (data.posts.length < POSTS_PER_PAGE) setHasMorePosts(false);
+  
+        setUserPosts(prev => [...prev, ...data.posts]);
+      } else {
+        console.error('Error fetching user posts:', data.message);
+      }
+    } catch (err) {
+      console.error('Error fetching user posts:', err);
+    }
+  };
 
   useEffect(() => {
     if (!usernameProfile) return;
@@ -72,6 +100,16 @@ const Profile: React.FC = () => {
       setIsFollowing(user.following?.includes(profile_data._id) ?? false);
     }
   }, [user, profile_data]);
+
+  useEffect(() => {
+    if (usernameProfile) {
+      setUserPosts([]);         // Reset when switching users
+      setCurrentPage(1);
+      setHasMorePosts(true);
+      fetchUserPosts(1);        // Fetch first page
+    }
+  }, [usernameProfile]);
+  
   
 
   console.log(profile_data);
@@ -170,8 +208,6 @@ const Profile: React.FC = () => {
     return <p>Loading profile...</p>;
   }
 
-
-
   return (
     <div id='ProfilePage' className='bg-gray-300 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white'>
@@ -249,17 +285,40 @@ const Profile: React.FC = () => {
           </div>
           <div id="userContentDetails" className='flex flex-col items-center mt-10 w-5/6'>
             <p className='font-bold m-2'>Posts</p>
-            <input type="text" value={count} min={0} max={200} onChange={(e) => setCount(Number(e.target.value))} />
-            <p>{count}</p>
             <p id='line' className='w-full h-1 bg-black my-2'></p>
-            <div id="postsContainer" className='border-2 p-5 w-2/3 justify-items-center grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-              {Array.from({ length: count }).map((_, index) => (
-                <div key={index} id={`postExample${index}`} className='border-2 w-32 aspect-square'>
-                  <div id="postImage" className='w-full h-full bg-contain rounded-lg overflow-hidden mb-5'>
-                    <img src='/images/Default-pfp.jpg' alt={`Post ${index}`} className="w-full h-full object-cover" />
+            <div className="flex flex-col gap-6 mt-4 px-4">
+              {userPosts.length > 0 && (
+                <>
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full'>
+                    {userPosts.map(post => (
+                      <div key={post._id} className='border rounded p-4'>
+                        <h3 className='font-bold'>{post.title}</h3>
+                        <p>{post.content}</p>
+                        {post.media && (
+                          post.mediaType === 'video' ? (
+                            <video src={post.media} controls className='w-full max-h-[400px] object-contain' />
+                          ) : (
+                            <img src={post.media} alt='post' className='w-full max-h-[400px] object-cover' />
+                          )
+                        )}
+                      </div>
+                    ))}
                   </div>
-                </div>
-              ))}
+
+                  {hasMorePosts && (
+                    <button
+                      className='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+                      onClick={() => {
+                        const nextPage = currentPage + 1;
+                        fetchUserPosts(nextPage);
+                        setCurrentPage(nextPage);
+                      }}
+                    >
+                      Load More
+                    </button>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
