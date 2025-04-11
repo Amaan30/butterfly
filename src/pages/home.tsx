@@ -234,9 +234,9 @@ const Home: React.FC = () => {
                     {post.media && (
                       <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
                         {post.mediaType === 'video' ? (
-                          <video src={post.media} controls className="max-h-[500px] w-full bg-black object-contain rounded" />
+                          <video src={post.media} controls className="max-h-[700px] w-full bg-black object-contain rounded" />
                         ) : (
-                          <img src={post.media} alt={post.title} className="max-w-full max-h-[500px] w-auto h-auto object-contain rounded" />
+                          <img src={post.media} alt={post.title} className="max-w-full max-h-[700px] w-auto h-auto object-contain rounded" />
                         )}
                       </div>
                     )}
