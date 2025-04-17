@@ -22,6 +22,9 @@ const Home: React.FC = () => {
   const [hasMorePages, setHasMorePages] = useState(true); // State to manage if there are more pages
   
   const [loading, setLoading] = useState(false); // State to manage loading state
+
+
+  const [activeChatUser, setActiveChatUser] = useState<PublicUserInfo | null>(null); // State to manage chat component
   
   const fetchFeed = async () => {
     try {
@@ -173,6 +176,10 @@ const Home: React.FC = () => {
   };
   
 
+  const chatHandle = (friend: PublicUserInfo) => {
+    setActiveChatUser(friend);
+  };
+
   return (
     <div id='HomeMainContainer' className='bg-gray-300 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
@@ -278,11 +285,28 @@ const Home: React.FC = () => {
                       <span>{friend.username}</span>
                     </div>
                   </button>
+                  <button onClick={() => chatHandle(friend)} className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900'>Chat</button>
                 </li>
               ))}
             </ul>
           </div>}
         </div>
+        {activeChatUser && (
+          <div id="chat-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto'>
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-xl font-bold">Chat with {activeChatUser.username}</h2>
+              <button onClick={() => setActiveChatUser(null)} className="text-sm text-red-500 hover:underline">Close</button>
+            </div>
+            <div className="h-64 bg-gray-100 p-2 rounded overflow-y-auto">
+              {/* Messages will go here */}
+              <p className="text-sm text-gray-600">This is a placeholder chat area.</p>
+            </div>
+            <form className="mt-2 flex gap-2">
+              <input type="text" placeholder="Type a message..." className="flex-1 p-2 border rounded" />
+              <button type="submit" className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900">Send</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   )
