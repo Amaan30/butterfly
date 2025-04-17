@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   const [activeChatUser, setActiveChatUser] = useState<PublicUserInfo | null>(null); // State to manage chat component
 
-  const socket = io(import.meta.env.VITE_API_URL, { withCredentials: true, transports: ['polling'] }); // Initialize socket connection, cant use ws because of render free tier limitations, so using polling instead ;(
+  const socket = io(import.meta.env.VITE_API_URL, { withCredentials: true, transports: ['polling'] }); // Initialize socket connection, cant use ws because of render free tier limitations, so using polling fallback instead ;(
   const [messages, setMessages] = useState<{sender: string, message: string}[]>([]); // State to manage messages
   const [currentMessage, setCurrentMessage] = useState<string>(""); // State to manage current message
 
