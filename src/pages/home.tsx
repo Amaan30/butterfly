@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { act, useCallback, useEffect, useRef, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { FollowInfoResponse, PublicUserInfo } from '../types/user';
@@ -265,7 +265,9 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
+
+        {!activeChatUser && (
+          <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
           {user?.following?.length === 0 && 
           <div className='flex flex-col items-center justify-center h-full'>
             <h2 className='text-xl font-bold'>No friends yet</h2>
@@ -291,6 +293,8 @@ const Home: React.FC = () => {
             </ul>
           </div>}
         </div>
+        )}
+        
         {activeChatUser && (
           <div id="chat-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto'>
             <div className="flex justify-between items-center mb-2">
