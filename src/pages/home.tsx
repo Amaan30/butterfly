@@ -3,6 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { FollowInfoResponse, PublicUserInfo } from '../types/user';
 import { PostSchema } from '../types/user';
+import { io } from 'socket.io-client';
 
 const Home: React.FC = () => {
 
@@ -25,6 +26,30 @@ const Home: React.FC = () => {
 
 
   const [activeChatUser, setActiveChatUser] = useState<PublicUserInfo | null>(null); // State to manage chat component
+
+  const socket = io(import.meta.env.VITE_API_URL, { withCredentials: true, transports: ['websocket'] }); // Initialize socket connection
+  const [messages, setMessages] = useState<{sender: string, message: string}[]>([]); // State to manage messages
+  const [currentMessage, setCurrentMessage] = useState<string>(""); // State to manage current message
+
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to socket server');
+    });
+    socket.emit("join-room", user!._id); // Join the room with the user's ID
+    socket.on("receive-message", (message) => {
+      console.log("Message received:", message);
+      setMessages((prevMessages) => [...prevMessages, message]); // Append new message to the existing messages
+    }); // Listen for incoming messages
+    return () => {
+      socket.off("receive-message"); // Clean up the event listener on component unmount
+      socket.disconnect(); // Disconnect the socket when the component unmounts
+      // This is important to prevent memory leaks and ensure that the socket connection is closed properly.
+    };
+  },[]);
+
+      
+
   
   const fetchFeed = async () => {
     try {
@@ -297,18 +322,31 @@ const Home: React.FC = () => {
         
         {activeChatUser && (
           <div id="chat-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto'>
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="text-xl font-bold">Chat with {activeChatUser.username}</h2>
-              <button onClick={() => setActiveChatUser(null)} className="text-sm text-red-500 hover:underline">Close</button>
+            <div className="border p-4 rounded-lg w-full">
+              <div className="h-64 overflow-y-scroll mb-2 bg-gray-100 p-2 rounded">
+                {messages.map((msg, idx) => (
+                  <div key={idx} className={`mb-1 ${msg.sender === user?.username ? 'text-right' : 'text-left'}`}>
+                    <span className="inline-block bg-indigo-100 p-2 rounded">{msg.message}</span>
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                if (!currentMessage.trim()) return;
+                socket.emit('send-message', { sender: user?.username, text: currentMessage });
+                setMessages((prev) => [...prev, { sender: user!.username, message: currentMessage }]);
+                setCurrentMessage('');
+              }} className="flex">
+                <input
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  className="flex-grow p-2 border rounded-l"
+                  placeholder="Type a message..."
+                />
+                <button type="submit" className="bg-indigo-600 text-white px-4 rounded-r">Send</button>
+              </form>
             </div>
-            <div className="h-64 bg-gray-100 p-2 rounded overflow-y-auto">
-              {/* Messages will go here */}
-              <p className="text-sm text-gray-600">This is a placeholder chat area.</p>
-            </div>
-            <form className="mt-2 flex gap-2">
-              <input type="text" placeholder="Type a message..." className="flex-1 p-2 border rounded" />
-              <button type="submit" className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900">Send</button>
-            </form>
           </div>
         )}
       </div>
