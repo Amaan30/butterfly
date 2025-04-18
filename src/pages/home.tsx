@@ -230,6 +230,9 @@ const Home: React.FC = () => {
     fetchMessages(); // Call the function to fetch messages
   };
 
+  console.log("Messages:", messages);
+  
+
   return (
     <div id='HomeMainContainer' className='bg-gray-300 w-full min-h-screen'>
       <div id="navbar" className='bg-indigo-950 w-full h-16 flex items-center text-white fixed z-50 top-0 left-0'>
@@ -358,7 +361,7 @@ const Home: React.FC = () => {
                           ? 'bg-indigo-600 text-white rounded-br-none' 
                           : 'bg-gray-200 text-gray-800 rounded-bl-none'
                       }`}>
-                        {msg.message}
+                        {msg.content}
                       </div>
                       <div className="text-xs text-gray-500 mt-1">
                         {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
