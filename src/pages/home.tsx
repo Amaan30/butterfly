@@ -357,7 +357,7 @@ const Home: React.FC = () => {
                   messages.map((msg, idx) => (
                     <div key={idx} className={`mb-2 ${msg.sender === user?._id ? 'text-right' : 'text-left'}`}>
                       <div className={`inline-block max-w-3/4 px-3 py-2 rounded-lg ${
-                        msg.sender === user?.username 
+                        msg.sender === user?._id 
                           ? 'bg-indigo-600 text-white rounded-br-none' 
                           : 'bg-gray-200 text-gray-800 rounded-bl-none'
                       }`}>
@@ -382,7 +382,7 @@ const Home: React.FC = () => {
                     content: currentMessage 
                   });
                   setMessages((prev) => [...prev, { 
-                    sender: user!.username, 
+                    sender: user!._id, 
                     content: currentMessage,
                     receiver: activeChatUser!._id 
                   }]);
