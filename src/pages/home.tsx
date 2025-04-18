@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   const [activeChatUser, setActiveChatUser] = useState<PublicUserInfo | null>(null); // State to manage chat component
 
   const socket = io(import.meta.env.VITE_API_URL, { withCredentials: true, transports: ['polling'] }); // Initialize socket connection, cant use ws because of render free tier limitations, so using polling fallback instead ;(
-  const [messages, setMessages] = useState<{sender: string, message: string}[]>([]); // State to manage messages
+  const [messages, setMessages] = useState<{sender: string, message: string, receiver: string}[]>([]); // State to manage messages
   const [currentMessage, setCurrentMessage] = useState<string>(""); // State to manage current message
 
 
@@ -334,8 +334,8 @@ const Home: React.FC = () => {
               <form onSubmit={(e) => {
                 e.preventDefault();
                 if (!currentMessage.trim()) return;
-                socket.emit('send-message', { sender: user?.username, text: currentMessage });
-                setMessages((prev) => [...prev, { sender: user!.username, message: currentMessage }]);
+                socket.emit('send-message', { sender: user!.username, receiver: activeChatUser!.username, text: currentMessage });
+                setMessages((prev) => [...prev, { sender: user!.username, receiver: activeChatUser!.username, message: currentMessage }]);
                 setCurrentMessage('');
               }} className="flex">
                 <input
