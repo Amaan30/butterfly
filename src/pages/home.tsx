@@ -39,6 +39,7 @@ const Home: React.FC = () => {
     socket.emit("join-room", user!._id); // Join the room with the user's ID
     socket.on("receive-message", (message) => {
       console.log("Message received:", message);
+      if (message.sender === user!._id) return; // Ignore messages sent by the current user
       setMessages((prevMessages) => [...prevMessages, message]); // Append new message to the existing messages
     }); // Listen for incoming messages
     return () => {
@@ -46,7 +47,7 @@ const Home: React.FC = () => {
       socket.disconnect(); // Disconnect the socket when the component unmounts
       // This is important to prevent memory leaks and ensure that the socket connection is closed properly.
     };
-  },[]);
+  },[socket, user]);
 
       
 
@@ -376,16 +377,22 @@ const Home: React.FC = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (!currentMessage.trim()) return;
+
+                  const tempMessage = {
+                    _id: `temp-${Date.now()}`,
+                    sender: user!._id,
+                    content: currentMessage,
+                    receiver: activeChatUser!._id,
+                    isOptimistic: true,
+                  };
+                  setMessages((prev) => [...prev, tempMessage]); // Optimistically update the messages
+                  
                   socket.emit('send-message', { 
                     sender: user!._id, 
                     receiver: activeChatUser!._id, 
                     content: currentMessage 
                   });
-                  setMessages((prev) => [...prev, { 
-                    sender: user!._id, 
-                    content: currentMessage,
-                    receiver: activeChatUser!._id 
-                  }]);
+                  
                   setCurrentMessage('');
                 }} 
                 className="flex p-3 border-t"
