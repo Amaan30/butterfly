@@ -217,6 +217,8 @@ const Home: React.FC = () => {
         if (response.ok) {
           console.log('Messages fetched successfully:', data);
           setMessages(data); // Set the messages state with the fetched data
+          console.log(data);
+          
         } else {
           console.error('Error fetching messages:', data.message);
         }
