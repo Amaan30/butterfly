@@ -244,7 +244,56 @@ const Home: React.FC = () => {
       </div>
       
       <div id="mainPage" className='flex w-full mt-16'>
-        {/* Update the chat component with improved design and close button*/}
+        <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
+          <div id="feed-header" className='flex items-center justify-between'>
+            <h1 className='text-3xl font-bold'>Welcome back, {user?.username}!</h1>
+            <button className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900' onClick={() => Navigate(`/${username}/create_post`)}>Create Post</button>
+          </div>
+          <div id="feed-list-component" className='mt-4'>
+            <h2 className='text-2xl font-bold'>Feed</h2>
+            {/* Feed items will go here */}
+            <div className="flex flex-col gap-6 mt-4 px-4">
+              {feed?.map((post: PostSchema, index: number) => {
+                const isLastPost = index === feed.length - 1;
+                return (
+                  <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg" ref={isLastPost ? LastPostRef : null}>
+                    
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-2xl font-semibold text-gray-800">{post.title}</h3>
+                      <span className="text-sm text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</span>
+                    </div>
+
+                    {post.media && (
+                      <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
+                        {post.mediaType === 'video' ? (
+                          <video src={post.media} controls className="max-h-[700px] w-full bg-black object-contain rounded" />
+                        ) : (
+                          <img src={post.media} alt={post.title} className="max-w-full max-h-[700px] w-auto h-auto object-contain rounded" />
+                        )}
+                      </div>
+                    )}
+
+                    <p className="text-gray-700 leading-relaxed">{post.content}</p>
+                    <div className="flex items-center justify-between mt-4">
+                    <button
+                      className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900"
+                      onClick={() => toggleLike(post._id)}
+                    >
+                      {post.likes?.includes(user!._id) ? 'Unlike' : 'Like'} ({post.likes?.length || 0})
+                    </button>
+                    <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
+                    </div>
+                  </div>
+                )
+              }
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* start */}
+
+        // Update the chat component with improved design and close button
         {activeChatUser && (
           <div id="chat-component" className='mx-4 p-4 m-4 w-96 bg-white ml-auto rounded-lg shadow-md'>
             <div className="border rounded-lg w-full">
