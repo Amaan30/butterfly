@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   const [activeChatUser, setActiveChatUser] = useState<PublicUserInfo | null>(null); // State to manage chat component
 
   const socket = io(import.meta.env.VITE_API_URL, { withCredentials: true, transports: ['polling'] }); // Initialize socket connection, cant use ws because of render free tier limitations, so using polling fallback instead ;(
-  const [messages, setMessages] = useState<{sender: string, message: string, receiver: string}[]>([]); // State to manage messages
+  const [messages, setMessages] = useState<{sender: string, content: string, receiver: string}[]>([]); // State to manage messages
   const [currentMessage, setCurrentMessage] = useState<string>(""); // State to manage current message
 
 
@@ -355,7 +355,7 @@ const Home: React.FC = () => {
                   </div>
                 ) : (
                   messages.map((msg, idx) => (
-                    <div key={idx} className={`mb-2 ${msg.sender === user?.username ? 'text-right' : 'text-left'}`}>
+                    <div key={idx} className={`mb-2 ${msg.sender === user?._id ? 'text-right' : 'text-left'}`}>
                       <div className={`inline-block max-w-3/4 px-3 py-2 rounded-lg ${
                         msg.sender === user?.username 
                           ? 'bg-indigo-600 text-white rounded-br-none' 
@@ -383,7 +383,7 @@ const Home: React.FC = () => {
                   });
                   setMessages((prev) => [...prev, { 
                     sender: user!.username, 
-                    message: currentMessage,
+                    content: currentMessage,
                     receiver: activeChatUser!._id 
                   }]);
                   setCurrentMessage('');
