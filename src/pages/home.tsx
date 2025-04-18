@@ -244,109 +244,137 @@ const Home: React.FC = () => {
       </div>
       
       <div id="mainPage" className='flex w-full mt-16'>
-        <div id="feed-component" className='mx-4 p-4 m-4 flex-1 bg-white '>
-          <div id="feed-header" className='flex items-center justify-between'>
-            <h1 className='text-3xl font-bold'>Welcome back, {user?.username}!</h1>
-            <button className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900' onClick={() => Navigate(`/${username}/create_post`)}>Create Post</button>
-          </div>
-          <div id="feed-list-component" className='mt-4'>
-            <h2 className='text-2xl font-bold'>Feed</h2>
-            {/* Feed items will go here */}
-            <div className="flex flex-col gap-6 mt-4 px-4">
-              {feed?.map((post: PostSchema, index: number) => {
-                const isLastPost = index === feed.length - 1;
-                return (
-                  <div key={post._id} className="bg-white rounded-xl shadow-md p-6 border border-gray-200 transition hover:shadow-lg" ref={isLastPost ? LastPostRef : null}>
-                    
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-2xl font-semibold text-gray-800">{post.title}</h3>
-                      <span className="text-sm text-gray-500">{new Date(post.createdAt).toLocaleDateString()}</span>
-                    </div>
-
-                    {post.media && (
-                      <div className="w-full max-h-96 overflow-hidden rounded-lg mb-4 flex justify-center">
-                        {post.mediaType === 'video' ? (
-                          <video src={post.media} controls className="max-h-[700px] w-full bg-black object-contain rounded" />
-                        ) : (
-                          <img src={post.media} alt={post.title} className="max-w-full max-h-[700px] w-auto h-auto object-contain rounded" />
-                        )}
-                      </div>
-                    )}
-
-                    <p className="text-gray-700 leading-relaxed">{post.content}</p>
-                    <div className="flex items-center justify-between mt-4">
-                    <button
-                      className="bg-indigo-950 text-white px-4 py-2 rounded hover:bg-indigo-900"
-                      onClick={() => toggleLike(post._id)}
-                    >
-                      {post.likes?.includes(user!._id) ? 'Unlike' : 'Like'} ({post.likes?.length || 0})
-                    </button>
-                    <button className="text-indigo-950 hover:underline" onClick={() => Navigate(`/${username}/post/${post._id}`)}>View Comments</button>
-                    </div>
-                  </div>
-                )
-              }
-              )}
-            </div>
-          </div>
-        </div>
-
-        {!activeChatUser && (
-          <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto hidden lg:block'>
-          {user?.following?.length === 0 && 
-          <div className='flex flex-col items-center justify-center h-full'>
-            <h2 className='text-xl font-bold'>No friends yet</h2>
-            <p className='text-gray-500'>Start following people to see their posts here!</p>
-          </div>}
-          {user?.following && user?.following.length > 0 &&
-          <div className='flex flex-col items-center justify-center h-full'>
-            <h2 className='text-xl font-bold'>Your Friends</h2>
-            <ul className='list-disc'>
-              {followingInfo && followingInfo.following.map((friend: PublicUserInfo) => (
-                <li key={friend._id} className='flex items-center justify-between w-full p-2 border-b border-gray-200' >
-                  <button onClick={() => Navigate(`/${friend.username}`)} className='flex items-center justify-between w-full p-2 border-b border-gray-200 hover:bg-blue-200 hover:underline cursor-pointer transition-colors duration-200 text-left rounded'>
-                    <div className='flex items-center'>
-                      <div className='w-8 h-8 bg-contain rounded-full overflow-hidden mr-2'>
-                        <img src={`${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile Picture" className="w-full h-full object-cover" />
-                      </div>
-                      <span>{friend.username}</span>
-                    </div>
-                  </button>
-                  <button onClick={() => chatHandle(friend)} className='bg-indigo-950 text-white p-2 rounded hover:bg-indigo-900'>Chat</button>
-                </li>
-              ))}
-            </ul>
-          </div>}
-        </div>
-        )}
-        
+        {/* Update the chat component with improved design and close button*/}
         {activeChatUser && (
-          <div id="chat-component" className='mx-4 p-4 m-4 w-96 h-fit bg-white ml-auto'>
-            <div className="border p-4 rounded-lg w-full">
-              <div className="h-64 overflow-y-scroll mb-2 bg-gray-100 p-2 rounded">
-                {messages.map((msg, idx) => (
-                  <div key={idx} className={`mb-1 ${msg.sender === user?.username ? 'text-right' : 'text-left'}`}>
-                    <span className="inline-block bg-indigo-100 p-2 rounded">{msg.message}</span>
+          <div id="chat-component" className='mx-4 p-4 m-4 w-96 bg-white ml-auto rounded-lg shadow-md'>
+            <div className="border rounded-lg w-full">
+              {/* Chat header with user info and close button */}
+              <div className="flex items-center justify-between bg-indigo-950 text-white p-3 rounded-t-lg">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-contain rounded-full overflow-hidden mr-2">
+                    <img 
+                      src={`${activeChatUser.profilePicture || '/images/Default-pfp.jpg'}`} 
+                      alt="Chat User Profile" 
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
-                ))}
+                  <span className="font-medium">{activeChatUser.username}</span>
+                </div>
+                <button 
+                  onClick={() => setActiveChatUser(null)} 
+                  className="text-white hover:text-red-300 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
 
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                if (!currentMessage.trim()) return;
-                socket.emit('send-message', { sender: user!.username, receiver: activeChatUser!.username, text: currentMessage });
-                setMessages((prev) => [...prev, { sender: user!.username, receiver: activeChatUser!.username, message: currentMessage }]);
-                setCurrentMessage('');
-              }} className="flex">
+              {/* Messages container */}
+              <div className="h-72 overflow-y-auto p-3 bg-gray-50">
+                {messages.length === 0 ? (
+                  <div className="flex items-center justify-center h-full text-gray-500">
+                    Begin your conversation...
+                  </div>
+                ) : (
+                  messages.map((msg, idx) => (
+                    <div key={idx} className={`mb-2 ${msg.sender === user?.username ? 'text-right' : 'text-left'}`}>
+                      <div className={`inline-block max-w-3/4 px-3 py-2 rounded-lg ${
+                        msg.sender === user?.username 
+                          ? 'bg-indigo-600 text-white rounded-br-none' 
+                          : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                      }`}>
+                        {msg.message}
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1">
+                        {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Message input and send button */}
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!currentMessage.trim()) return;
+                  socket.emit('send-message', { 
+                    sender: user!._id, 
+                    receiver: activeChatUser!._id, 
+                    content: currentMessage 
+                  });
+                  setMessages((prev) => [...prev, { 
+                    sender: user!.username, 
+                    message: currentMessage,
+                    receiver: activeChatUser!._id 
+                  }]);
+                  setCurrentMessage('');
+                }} 
+                className="flex p-3 border-t"
+              >
                 <input
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}
-                  className="flex-grow p-2 border rounded-l"
+                  className="flex-grow p-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-indigo-300"
                   placeholder="Type a message..."
                 />
-                <button type="submit" className="bg-indigo-600 text-white px-4 rounded-r">Send</button>
+                <button 
+                  type="submit" 
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-r hover:bg-indigo-700 transition-colors"
+                >
+                  Send
+                </button>
               </form>
             </div>
+          </div>
+        )}
+
+        {/* Enhanced follower component */}
+        {!activeChatUser && (
+          <div id="friendlist-component" className='mx-4 p-4 m-4 w-96 bg-white ml-auto rounded-lg shadow-md hidden lg:block'>
+            <h2 className='text-xl font-bold text-indigo-950 border-b pb-3 mb-4'>Your Connections</h2>
+            
+            {user?.following?.length === 0 && 
+              <div className='flex flex-col items-center justify-center py-10'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <h3 className='text-lg font-semibold text-gray-700'>No friends yet</h3>
+                <p className='text-gray-500 text-center mt-1'>Start following people to see their posts here!</p>
+              </div>
+            }
+            
+            {followingInfo && followingInfo.following.length > 0 &&
+              <div className='overflow-y-auto max-h-96'>
+                <ul className='divide-y divide-gray-100'>
+                  {followingInfo.following.map((friend: PublicUserInfo) => (
+                    <li key={friend._id} className='py-2'>
+                      <div className='flex items-center justify-between'>
+                        <button 
+                          onClick={() => Navigate(`/${friend.username}`)} 
+                          className='flex items-center p-2 rounded-lg hover:bg-indigo-50 transition-colors duration-200 flex-grow text-left'
+                        >
+                          <div className='w-10 h-10 bg-contain rounded-full overflow-hidden mr-3 border border-gray-200'>
+                            <img src={`${friend.profilePicture || '/images/Default-pfp.jpg'}`} alt="Friend's Profile" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="font-medium text-gray-800">{friend.username}</span>
+                        </button>
+                        <button 
+                          onClick={() => chatHandle(friend)} 
+                          className='bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition-colors ml-2 flex items-center'
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          Chat
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
           </div>
         )}
       </div>
