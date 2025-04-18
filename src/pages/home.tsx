@@ -293,7 +293,7 @@ const Home: React.FC = () => {
 
         {/* start */}
 
-        // Update the chat component with improved design and close button
+        {/*Update the chat component with improved design and close button*/}
         {activeChatUser && (
           <div id="chat-component" className='mx-4 p-4 m-4 w-96 bg-white ml-auto rounded-lg shadow-md'>
             <div className="border rounded-lg w-full">
