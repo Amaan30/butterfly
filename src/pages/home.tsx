@@ -203,6 +203,29 @@ const Home: React.FC = () => {
 
   const chatHandle = (friend: PublicUserInfo) => {
     setActiveChatUser(friend);
+    
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}api/messages/${user!._id}/${friend._id}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          console.log('Messages fetched successfully:', data);
+          setMessages(data); // Set the messages state with the fetched data
+        } else {
+          console.error('Error fetching messages:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+  
+    fetchMessages(); // Call the function to fetch messages
   };
 
   return (
